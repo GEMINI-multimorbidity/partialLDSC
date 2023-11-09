@@ -46,7 +46,7 @@ library(partialLDSC)
 
 ## Usage
 
-To run the analysis with `MRlap` different inputs are needed:
+To run the analysis with `partialLDSC` different inputs are needed:
 
 #### 1. The munged GWAS summary statistics (`conditions` & `confounder`):
 
