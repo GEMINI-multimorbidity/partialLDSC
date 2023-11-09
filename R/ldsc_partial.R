@@ -738,19 +738,17 @@ partial_ldsc <- function(conditions, confounder,
   flush(log.file)
   close(log.file)
   
-  #### NM modification starts ####
-  
+
   write_tsv(res, paste0(ldsc.log, "_difference.tsv"))
   
   
   # return everything 
   list(res_diff = res,
-       V=V,S=cov,
-       I=I,N=N.vec,m=m,
-       V_Stand=V_Stand,S_Stand=S_Stand,
-       partial.V=partial.V,partial.S=partial.cov,
-       partial.V_Stand=partial.V_Stand,partial.S_Stand=partial.S_Stand)
-  #### NM modification ends ####
+       S = cov, V = V,
+       S_Stand = S_Stand, V_Stand = V_Stand,
+       partial.S = partial.cov, partial.V = partial.V,
+       partial.S_Stand = partial.S_Stand, partial.V_Stand = partial.V_Stand,
+       I=I)
   
   
   
