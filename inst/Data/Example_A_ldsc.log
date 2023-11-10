@@ -1,0 +1,124 @@
+Multivariate ld-score regression of 4 traits (3 conditions: OA, T2D, BPH + confounder: BMI) began at: 13:37
+Number of blocks used to perform the block jacknife used to estimate the sampling covariance matrix (V) is 200
+Reading in LD scores from: C:\Users\nm572\OneDrive - University of Exeter\Documents\Exeter\Projects\Data\eur_w_ld_chr
+Read in summary statistics [1/4] (OA) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\OA_GEMINI.sumstats.gz
+Out of 1168143 SNPs, 1155445 remain after merging with LD-score files
+Removing 0 SNPs with Chi^2 > 766.622; 1155445 remain
+Read in summary statistics [2/4] (T2D) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\diabetes_type_2_GEMINI.sumstats.gz
+Out of 1161441 SNPs, 1153850 remain after merging with LD-score files
+Removing 15 SNPs with Chi^2 > 446.142; 1153835 remain
+Read in summary statistics [3/4] (BPH) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\BPH_GEMINI.sumstats.gz
+Out of 1166954 SNPs, 1160509 remain after merging with LD-score files
+Removing 1 SNPs with Chi^2 > 203.231; 1160508 remain
+Read in summary statistics [4/4] (BMI) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\BMI_Yengo_2018.txt.sumstats.gz
+Out of 1018130 SNPs, 1014995 remain after merging with LD-score files
+Removing 6 SNPs with Chi^2 > 795.64; 1014989 remain
+          
+Estimating heritability [1/10] for: OA
+Heritability Results for trait: OA
+Mean Chi^2 across remaining SNPs: 1.4953
+Lambda GC: 1.22
+Intercept: 0.8991 (0.0113)
+Ratio: -0.2036 (0.0229)
+Total Observed Scale h2: 0.039 (0.0014)
+h2 Z: 28
+     
+Calculating genetic covariance [2/10] for traits: OA and T2D
+1145694 SNPs remain after merging OA and T2D summary statistics
+Results for genetic covariance between: OA and T2D
+Mean Z*Z: 0.2186
+Cross trait Intercept: 0.0299 (0.0076)
+Total Observed Scale Genetic Covariance (g_cov): 0.0158 (0.0016)
+g_cov Z: 10.2
+g_cov P-value: 3.0229e-24
+     
+Calculating genetic covariance [3/10] for traits: OA and BPH
+1151912 SNPs remain after merging OA and BPH summary statistics
+Results for genetic covariance between: OA and BPH
+Mean Z*Z: 0.0934
+Cross trait Intercept: 0.0418 (0.0058)
+Total Observed Scale Genetic Covariance (g_cov): 0.0064 (0.0016)
+g_cov Z: 3.96
+g_cov P-value: 7.3987e-05
+     
+Calculating genetic covariance [4/10] for traits: OA and BMI
+996930 SNPs remain after merging OA and BMI summary statistics
+Results for genetic covariance between: OA and BMI
+Mean Z*Z: 0.6241
+Cross trait Intercept: 0.0446 (0.0112)
+Total Observed Scale Genetic Covariance (g_cov): 0.0394 (0.0019)
+g_cov Z: 20.5
+g_cov P-value: 8.6266e-94
+          
+Estimating heritability [5/10] for: T2D
+Heritability Results for trait: T2D
+Mean Chi^2 across remaining SNPs: 2.1342
+Lambda GC: 1.4961
+Intercept: 1.0054 (0.0259)
+Ratio: 0.0048 (0.0229)
+Total Observed Scale h2: 0.1307 (0.0055)
+h2 Z: 23.8
+     
+Calculating genetic covariance [6/10] for traits: T2D and BPH
+1151699 SNPs remain after merging T2D and BPH summary statistics
+Results for genetic covariance between: T2D and BPH
+Mean Z*Z: 0.0113
+Cross trait Intercept: -0.0058 (0.0069)
+Total Observed Scale Genetic Covariance (g_cov): 0.0042 (0.0027)
+g_cov Z: 1.55
+g_cov P-value: 0.12162
+     
+Calculating genetic covariance [7/10] for traits: T2D and BMI
+996408 SNPs remain after merging T2D and BMI summary statistics
+Results for genetic covariance between: T2D and BMI
+Mean Z*Z: 1.0387
+Cross trait Intercept: 0.0487 (0.0152)
+Total Observed Scale Genetic Covariance (g_cov): 0.0894 (0.0038)
+g_cov Z: 23.4
+g_cov P-value: 7.1286e-121
+          
+Estimating heritability [8/10] for: BPH
+Heritability Results for trait: BPH
+Mean Chi^2 across remaining SNPs: 1.1591
+Lambda GC: 0.9517
+Intercept: 0.9102 (0.0108)
+Ratio: -0.5646 (0.0676)
+Total Observed Scale h2: 0.0623 (0.0051)
+h2 Z: 12.2
+     
+Calculating genetic covariance [9/10] for traits: BPH and BMI
+1001610 SNPs remain after merging BPH and BMI summary statistics
+Results for genetic covariance between: BPH and BMI
+Mean Z*Z: 0.0049
+Cross trait Intercept: 0.01 (0.0101)
+Total Observed Scale Genetic Covariance (g_cov): -6e-04 (0.0033)
+g_cov Z: -0.175
+g_cov P-value: 0.86117
+          
+Estimating heritability [10/10] for: BMI
+Heritability Results for trait: BMI
+Mean Chi^2 across remaining SNPs: 3.9344
+Lambda GC: 2.7869
+Intercept: 1.0199 (0.0277)
+Ratio: 0.0068 (0.0094)
+Total Observed Scale h2: 0.2091 (0.0063)
+h2 Z: 33.3
+     
+      
+Genetic Correlation Results
+Genetic Correlation between OA and T2D: 0.2216 (0.0208)
+Genetic Correlation between OA and BPH: 0.1295 (0.0333)
+Genetic Correlation between OA and BMI: 0.4361 (0.0182)
+Genetic Correlation between T2D and BPH: 0.0462 (0.0303)
+Genetic Correlation between T2D and BMI: 0.5408 (0.022)
+Genetic Correlation between BPH and BMI: -0.005 (0.0288)
+     
+      
+Partial genetic Correlation Results
+Partial genetic Correlation between OA and T2D: -0.0189 (0.0296)
+Partial genetic Correlation between OA and BPH: 0.1463 (0.0344)
+Partial genetic Correlation between T2D and BPH: 0.0581 (0.0315)
+     
+Analysis finished running at 13:38
+Runtime: 1 minute(s) and 21 second(s)
+     

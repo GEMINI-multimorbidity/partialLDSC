@@ -1,12 +1,17 @@
 Package: partialLDSC
-Title: What the Package Does (One Line, Title Case)
+Title: R package to estimate partial genetic correlations
 Version: 0.0.0.9
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Author: Ninon Mounier
+# Maintainer: <>
+Description: Adjusting genetic correlation estimates to account for the genetics of a common confounder can help better understand the role of this confounder in explaining the genetic similarity between conditions. This approach provides a way to estimate and compare unadjusted and partial genetic correlation estimates. 
+License: GPL (>= 3)
 Encoding: UTF-8
+Imports: 
+    magrittr,
+    dplyr,
+    gdata,
+    lubridate,
+    readr,
+    rlang
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1

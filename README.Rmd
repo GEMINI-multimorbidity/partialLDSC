@@ -18,6 +18,8 @@ options(pillar.neg=F, # do no print neg number in red
 devtools::build_manual()
 system("mv partialLDSC_0.0.0.9.pdf doc/partialLDSC-manual.pdf")
 library(partialLDSC)
+
+A = readRDS("inst/Data/A.RDS")
 ```
 
 # partialLDSC  
@@ -36,7 +38,7 @@ Our implementation of LDSC is based on the one from [`GenomicSEM`](https://githu
 
 There are three functions available:  
 
--   **`ldsc_partial()`**  
+-   **`partial_ldsc()`**  
 main function to estimate unadjusted and partial genetic correlations (as well as heritabilities, on the observed scale only), and compare them to each other to assess if adjusting for the confounder's genetic significantly affect the pairwise genetic correlation estimates.   
 
 -   **`heatmap()`**  
@@ -66,7 +68,7 @@ To run the analysis with `partialLDSC` different inputs are needed:
 
 #### 1. The munged GWAS summary statistics (`conditions` & `confounder`):
 
-More information about how to munge the summary statistics can be found [here](https://github.com/GenomicSEM/GenomicSEM/wiki/3.-Models-without-Individual-SNP-effects#step-1-munge-the-summary-statistics).    
+More information about how to munge the summary statistics can be found in the [`GenomicSEM`](https://github.com/GenomicSEM/GenomicSEM/) R-package documentaion, [here](https://github.com/GenomicSEM/GenomicSEM/wiki/3.-Models-without-Individual-SNP-effects#step-1-munge-the-summary-statistics).    
 
 
 #### 2. The input files for LDSC (`ld`):
@@ -79,7 +81,7 @@ LD scores are needed, these are the same as the ones needed by the [`GenomicSEM`
 ### Analysis
 [//]:-------------------------------
 
-Before running the examples, please make sure to have downloaded the input files for LDSC. You may also need to modify the `ld` parameters to indicate the correct path.    
+Before running the examples, please make sure to have downloaded the ld-scores files. You may also need to modify the `ld` parameters to indicate the correct path. Note that when running the analysis with your own GWAS summary statistics, you will first need to properly munge then.   
 
 - **Example A**
 
@@ -92,12 +94,12 @@ BPH_file <- system.file("data/", "BPH_GEMINI_sumstats.gz", package="partialLDSC"
 BMI_file <- system.file("data/", "BMI_Yengo_2018.txt.sumstats.gz", package="partialLDSC")
 
 # launch analysis (using default number of blocks)
-A = ldsc_partial(conditions = c(OA_file, T2D_file, BPH_file),
+A = partial_ldsc(conditions = c(OA_file, T2D_file, BPH_file),
                  confounder = BMI_file, 
                  condition.names = c("OA", "T2D", "BPH"), 
                  confounder.name = "BMI",
                  ld = "~/eur_w_ld_chr",
-                 ldsc.log = "Example_A")
+                 log.name = "Example_A")
 
 ``` 
 
@@ -108,7 +110,8 @@ A = ldsc_partial(conditions = c(OA_file, T2D_file, BPH_file),
   <summary>Show log</summary>
   
   ```{r logAdisplay,echo=FALSE, eval=TRUE}
-  cat("")
+  logA = readr::read_lines(system.file("data/", "Example_A_ldsc.log", package="partialLDSC"))
+  cat(logA, sep="\n")
   ```
   
     
@@ -127,63 +130,82 @@ add example with multiple confounder one implemented
 **`ldsc_partial()`** returns a named list containing the following results:  
 
 
-- res_diff (pairwise results)
+- `res_diff` (pairwise results)
 
-"condition.1" : first condition in the pair,   
-"condition.2" : second condition in the pair,  
-"rg" : unadjusted genetic correlation between the two conditions,    
-"rg.SE" : standard error of the unadjusted genetic correlation between the two conditions,       
-"partial_rg" : partial genetic correlation between the two conditions,      
-"partial_rg.SE" : standard error of the partial genetic correlation between the two conditions,      
-"rg_cov" : covariance between the unadjusted and the partial correlation estimates for the pair,      
-"diff.T" : test statistic used to test for the difference between the unadjusted and the partial correlation estimates for the pair,     
-"diff.P" : p-value corresponding to the test statistic used to test the difference between the unadjusted and the partial correlation estimates for the pair.     
+`condition.1` : first condition in the pair,   
+`condition.2` : second condition in the pair,  
+`rg` : unadjusted genetic correlation between the two conditions,    
+`rg.SE` : standard error of the unadjusted genetic correlation between the two conditions,       
+`partial_rg` : partial genetic correlation between the two conditions,      
+`partial_rg.SE` : standard error of the partial genetic correlation between the two conditions,      
+`rg_cov` : covariance between the unadjusted and the partial correlation estimates for the pair,      
+`diff.T` : test statistic used to test for the difference between the unadjusted and the partial correlation estimates for the pair,     
+`diff.P` : p-value corresponding to the test statistic used to test the difference between the unadjusted and the partial correlation estimates for the pair.     
 
         
-- S : estimated genetic covariance matrix for all conditions + confounder.    
+- `S` : estimated genetic covariance matrix for all conditions + confounder.    
 
-- V : variance covariance matrix of the parameter estimates in S.   
+- `V` : variance covariance matrix of the parameter estimates in `S`.   
 
-- S_Stand :  estimated genetic correlation matrix for all conditions + confounder.  
+- `S_Stand` :  estimated genetic correlation matrix for all conditions + confounder.  
 
-- V_Stand : variance covariance matrix of the parameter estimates in S_Stand.   
+- `V_Stand` : variance covariance matrix of the parameter estimates in `S_Stand`.   
 
-- partial.S : estimated partial genetic covariance matrix for all conditions.    
+- `partial.S` : estimated partial genetic covariance matrix for all conditions.    
 
-- partial.V : variance covariance matrix of the parameter estimates in partial.S.   
+- `partial.V` : variance covariance matrix of the parameter estimates in `partial.S`.   
 
-- partial.S_Stand : estimated partial genetic correlation matrix for all conditions.  
+- `partial.S_Stand` : estimated partial genetic correlation matrix for all conditions.  
 
-- partial.V_Stand : variance covariance matrix of the parameter estimates in partial.S_Stand.  
+- `partial.V_Stand` : variance covariance matrix of the parameter estimates in `partial.S_Stand`.  
 
-- I : matrix containing the cross-trait intercepts.   
+- `I` : matrix containing the cross-trait intercepts.   
+
+
+##### Aditionnaly, log and results files are created in the current working directory :
+-   **<log.name>_ldsc.log** - log file   
+-   **<log.name>_difference.tsv** - results file   
 
 
 - **Example A**
 
+```{r resultsA}
+# structure of the results
+str(A)
+
+# matrix of unadjusted genetic correlations
+A$S_Stand
+
+# pairwise results
+A$res_diff
+# in this case, we observed a significant difference between the unadjusted and the partial genetic correlation estimates only for OA and T2D. This does make sense since the genetic correlation between BMI and BPH is very low, explaining why adjusting for BMI does not affect the genetic correlation between BPH and the other conditions.
+
+# plots...
+```
 
 
 ## Runtime
 [//]:*******
 
-Example A ~   
+Example A ~ 1 minute(s) and 21 second(s)
 
 
 The runtime can be influenced by the number of traits.
 
 
-<!-- <font color="grey"><small> Results from analyses performed on a MacBook Pro (2020) - Processor : 2 GHz Quad-Core Intel Core i5 - Memory : 16 GB 3733 MHz LPDDR4X.</font> </small>    -->
+<font color="grey"><small> Results from analyses performed on a Windows 10 laptop - Processor : Intel(R) Core(TM) i5-10310U CPU @ 1.70GHz   2.21 GHz - Memory : 16.0 GB.</font> </small>
 
 
-## Contributors
+<!-- ## Contributors -->
 
 
 
 ## Citation
 [//]:*******
 
-If you use the `partialLDSC` package, please cite:
+If you use the `partialLDSC` package, please cite: <TBA>
 
 
 ## Contact
+<TBA>
 <!-- <mounier.ninon@gmail.com> -->

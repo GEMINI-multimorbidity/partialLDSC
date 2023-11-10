@@ -1,4 +1,4 @@
-#' ldsc_partial - main function to estimate partial genetic correlations
+#' partial_ldsc - main function to estimate partial genetic correlations
 #'
 #' Estimates unadjusted and partial genetic correlations (and heritabilities, on observed scale), 
 #' and tests for the difference between the two, for all pairs of conditions.
@@ -13,7 +13,7 @@
 #' @param ld The path to the folder in which the LD scores used in the analysis are located.
 #'        Expects LD scores formated as required by the original LD score regression software.  (character)
 #' @param n.blocks  The number of blocks used for block-jackknife, \code{default=200} (numeric)
-#' @param ldsc.log  The name of the log file, \code{default=NULL} (character)
+#' @param log.name  The name of the log file, \code{default=NULL} (character)
 
 
 #' @details
@@ -22,9 +22,11 @@
 #' from [\code{GenomicSEM}](https://github.com/GenomicSEM/GenomicSEM).
 #' @export
 
+#' @importFrom rlang .data
+
 partial_ldsc <- function(conditions, confounder, 
                          condition.names = NULL, confounder.name = NULL,
-                         ld, n.blocks = 200, ldsc.log = NULL){
+                         ld, n.blocks = 200, log.name = NULL){
   
   
   .LOG <- function(..., file, print = TRUE) {
@@ -33,9 +35,8 @@ partial_ldsc <- function(conditions, confounder,
     cat(msg, file = file, append = TRUE)
   }
   
-  time <- proc.time()
   begin.time <- Sys.time()
-  
+  begin.time.nice <- paste0(lubridate::hour(begin.time), ":", lubridate::minute(begin.time))
   #### check the parameters ####
   
   ## 1) conditions / confounder
@@ -76,29 +77,29 @@ partial_ldsc <- function(conditions, confounder,
     # get absolute path
     ld = normalizePath(ld)
     # check that files are here
-    if(any(!file.exixts(file.path(ld, paste0(1:22, ".l2.ldscore.gz"))))) stop("ld : expected .ldscore.gz files do not exist in the folder", call. = FALSE)
-    if(any(!file.exixts(file.path(ld, paste0(1:22, ".l2.M_5_50"))))) stop("ld : expected .l2.M_5_50 files do not exist in the folder", call. = FALSE)
+    if(any(!file.exists(file.path(ld, paste0(1:22, ".l2.ldscore.gz"))))) stop("ld : expected .ldscore.gz files do not exist in the folder", call. = FALSE)
+    if(any(!file.exists(file.path(ld, paste0(1:22, ".l2.M_5_50"))))) stop("ld : expected .l2.M_5_50 files do not exist in the folder", call. = FALSE)
   } else stop("ld : wrong format, should be character", call. = FALSE)
   
   # 3) log.file
   
-  if(! is.null(ldsc.log)){
-    if(! is.character(ldsc.log)) stop("ldsc.log : wrong format, should be character", call. = FALSE)
-  } else { # create ldsc.log name if NULL
+  if(! is.null(log.name)){
+    if(! is.character(log.name)) stop("log.name : wrong format, should be character", call. = FALSE)
+  } else { # create log.name name if NULL
     logtraits <- gsub(".*/", "", traits)
-    ldsc.log <- paste(logtraits, collapse = "_")
-    if(object.size(ldsc.log) > 200){
-      ldsc.log <- substr(ldsc.log,1,100)  
+    log.name <- paste(logtraits, collapse = "_")
+    if(gdata::object.size(log.name) > 200){
+      log.name <- substr(log.name,1,100)  
     }
   }
   
-  log.file <- file(paste0(ldsc.log, "_ldsc.log"), open = "wt")
+  log.file <- file(paste0(log.name, "_ldsc.log"), open = "wt")
   
   #### start analysis ####
   
   .LOG("Multivariate ld-score regression of ", length(traits), " traits ", 
-       "(",n.conditions, " conditons: ", paste(conditions, collapse = " "), 
-       " + confounder: ", confounder, ")", " began at: ", begin.time, file = log.file)
+       "(",n.conditions, " conditions: ", paste(condition.names, collapse = ", "), 
+       " + confounder: ", confounder.name, ")", " began at: ", begin.time.nice, file = log.file)
 
   ## Dimensions
   n.traits <- length(traits)
@@ -157,12 +158,12 @@ partial_ldsc <- function(conditions, confounder,
   
   
   #### read LD scores / weights / M ####
-  .LOG("Reading in LD scores", file = log.file)
+  .LOG("Reading in LD scores from: ", ld, file = log.file)
   
   chr=22
   # ld scores
   x <- do.call("rbind", lapply(1:chr, function(i) {
-    suppressMessages(read_delim(
+    suppressMessages(readr::read_delim(
       file.path(ld, paste0(i, ".l2.ldscore.gz")),
       delim = "\t", escape_double = FALSE, trim_ws = TRUE, progress = FALSE))
   }))
@@ -177,7 +178,7 @@ partial_ldsc <- function(conditions, confounder,
   
   # m
   m <- do.call("rbind", lapply(1:chr, function(i) {
-    suppressMessages(read_csv(file.path(ld, paste0(i, ".l2.M_5_50")), col_names = FALSE))
+    suppressMessages(readr::read_csv(file.path(ld, paste0(i, ".l2.M_5_50")), col_names = FALSE))
   }))
   
   M.tot <- sum(m)
@@ -190,14 +191,14 @@ partial_ldsc <- function(conditions, confounder,
   all_y <- lapply(traits, function(chi1) {
     
     ## READ chi2
-    y1 <- suppressMessages(na.omit(read_delim(
+    y1 <- suppressMessages(stats::na.omit(readr::read_delim(
       chi1, delim = "\t", escape_double = FALSE, trim_ws = TRUE, progress = FALSE)))
     
-    .LOG("Read in summary statistics [", s <<- s + 1, "/", n.traits, "] from: ", chi1, file=log.file)
+    .LOG("Read in summary statistics [", s <<- s + 1, "/", n.traits, "] (", trait.names[s], ") from: ", chi1, file=log.file)
     
     # make sure these are munged files, with correct colnames
-    if(!all(colnames(y1) == c("SNP", "A1", "A2", "Z", "N"))) {
-      .LOG(ch1, " does not have the expected column names", file=log.file)
+    if(!all(colnames(y1) %in% c("SNP", "A1", "A2", "Z", "N"))) {
+      .LOG(y1, " does not have the expected column names", file=log.file)
       flush(log.file)
       close(log.file)
       stop(paste0(chi1, " : wrong format, make sure the file has been correctly munged"), call. = FALSE)
@@ -245,7 +246,7 @@ partial_ldsc <- function(conditions, confounder,
       if(j == k){
         
         .LOG("     ", "     ", file=log.file, print = FALSE)
-        .LOG("Estimating heritability [", s, "/", n.V, "] for: ", chi1, file=log.file)
+        .LOG("Estimating heritability [", s, "/", n.V, "] for: ", trait.names[j], file=log.file)
         
         merged <- y1
         n.snps <- nrow(merged)
@@ -340,12 +341,12 @@ partial_ldsc <- function(conditions, confounder,
         cov[j,j] <- reg.tot
         I[j,j] <- intercept
         
-        lambda.gc <- median(merged$chi1) / qchisq(0.5, df = 1)
+        lambda.gc <- stats::median(merged$chi1) / stats::qchisq(0.5, df = 1)
         mean.Chi <- mean(merged$chi1)
         ratio <- (intercept - 1) / (mean.Chi - 1)
         ratio.se <- intercept.se / (mean.Chi - 1)
         
-        .LOG("Heritability Results for trait: ", chi1, file=log.file)
+        .LOG("Heritability Results for trait: ", trait.names[j], file=log.file)
         .LOG("Mean Chi^2 across remaining SNPs: ", round(mean.Chi, 4), file=log.file)
         .LOG("Lambda GC: ", round(lambda.gc, 4), file=log.file)
         .LOG("Intercept: ", round(intercept, 4), " (", round(intercept.se, 4), ")", file=log.file)
@@ -362,7 +363,7 @@ partial_ldsc <- function(conditions, confounder,
         .LOG("     ", file=log.file, print = FALSE)
         
         chi2 <- traits[k]
-        .LOG("Calculating genetic covariance [", s, "/", n.V, "] for traits: ", chi1, " and ", chi2, file=log.file)
+        .LOG("Calculating genetic covariance [", s, "/", n.V, "] for traits: ", trait.names[j], " and ", trait.names[k], file=log.file)
         
         # Reuse the data read in for heritability
         y2 <- all_y[[k]]
@@ -371,10 +372,10 @@ partial_ldsc <- function(conditions, confounder,
         y$Z.x <- ifelse(y$A1.y == y$A1.x, y$Z.x, -y$Z.x)
         y$ZZ <- y$Z.y * y$Z.x
         y$chi2 <- y$Z.y^2
-        merged <- na.omit(y)
+        merged <- stats::na.omit(y)
         n.snps <- nrow(merged)
         
-        .LOG(n.snps, " SNPs remain after merging ", chi1, " and ", chi2, " summary statistics", file=log.file)
+        .LOG(n.snps, " SNPs remain after merging ", trait.names[j], " and ", trait.names[k], " summary statistics", file=log.file)
         
         ## ADD INTERCEPT:
         merged$intercept <- 1
@@ -476,12 +477,12 @@ partial_ldsc <- function(conditions, confounder,
         cov[k, j] <- cov[j, k] <- reg.tot
         I[k, j] <- I[j, k] <- intercept
         
-        .LOG("Results for genetic covariance between: ", chi1, " and ", chi2, file=log.file)
+        .LOG("Results for genetic covariance between: ", trait.names[j], " and ", trait.names[k], file=log.file)
         .LOG("Mean Z*Z: ", round(mean(merged$ZZ), 4), file=log.file)
         .LOG("Cross trait Intercept: ", round(intercept, 4), " (", round(intercept.se, 4), ")", file=log.file)
         .LOG("Total Observed Scale Genetic Covariance (g_cov): ", round(reg.tot, 4), " (", round(tot.se, 4), ")", file=log.file)
         .LOG("g_cov Z: ", format(reg.tot / tot.se, digits = 3), file=log.file)
-        .LOG("g_cov P-value: ", format(2 * pnorm(abs(reg.tot / tot.se), lower.tail = FALSE), digits = 5), file=log.file)
+        .LOG("g_cov P-value: ", format(2 * stats::pnorm(abs(reg.tot / tot.se), lower.tail = FALSE), digits = 5), file=log.file)
       }
       
       ### Total count
@@ -504,7 +505,7 @@ partial_ldsc <- function(conditions, confounder,
     
     ##calculate standardized results to print genetic correlations to log and screen
     ratio <- tcrossprod(1 / sqrt(diag(cov))) 
-    S_Stand <- cov * ratioS
+    S_Stand <- cov * ratio
     
     #calculate the ratio of the rescaled and original S matrices
     scaleO <- gdata::lowerTriangle(ratio, diag = TRUE)
@@ -550,7 +551,6 @@ partial_ldsc <- function(conditions, confounder,
           }else{chi2 <- trait.names[k]}
           .LOG("Genetic Correlation between ", chi1, " and ", chi2, ": ",
                round(S_Stand[k, j], 4), " (", round(SE_Stand[k, j], 4), ")", file=log.file)
-          .LOG("     ", file=log.file, print = FALSE)
         }
       }
     }
@@ -652,7 +652,6 @@ partial_ldsc <- function(conditions, confounder,
           }else{chi2 <- condition.names[k]}
           .LOG("Partial genetic Correlation between ", chi1, " and ", chi2, ": ",
                round(partial.S_Stand[k, j], 4), " (", round(partial.SE_Stand[k, j], 4), ")", file=log.file)
-          .LOG("     ", file=log.file, print = FALSE)
         }
       }
     }
@@ -678,7 +677,14 @@ partial_ldsc <- function(conditions, confounder,
       
     }
   }
-  
+  row.names(cov) = trait.names
+  row.names(S_Stand) = trait.names
+  row.names(partial.cov) = condition.names
+  colnames(partial.cov) = condition.names
+  row.names(partial.S_Stand) = condition.names
+  colnames(partial.S_Stand) = condition.names
+  row.names(I) = trait.names
+  colnames(I) = trait.names
   
   # make a nice table with test statistic for difference & p-values
   res = data.frame(x = NA_character_,
@@ -717,29 +723,30 @@ partial_ldsc <- function(conditions, confounder,
   }
   
   res %>%
-    mutate(diff.T = (rg-partial_rg)/sqrt(rg.SE**2 + partial_rg.SE**2- 2*rg_cov),
-           diff.P = 2*pnorm(-abs(diff.T))) -> res
+    dplyr::mutate(diff.T = (.data$rg-.data$partial_rg)/sqrt(.data$rg.SE**2 + .data$partial_rg.SE**2- 2*.data$rg_cov),
+           diff.P = 2*stats::pnorm(-abs(.data$diff.T))) -> res
   
   
   #### NM modification ends ####
   
   
   end.time <- Sys.time()
+  end.time.nice <- paste0(lubridate::hour(end.time), ":", lubridate::minute(end.time))
   
   total.time <- difftime(time1=end.time,time2=begin.time,units="sec")
   mins <- floor(floor(total.time)/60)
   secs <- floor(total.time-mins*60)
   
   .LOG("     ", file=log.file, print = FALSE)
-  .LOG("LDSC finished running at ", end.time, file=log.file)
-  .LOG("Running LDSC for all files took ", mins, " minutes and ", secs, " seconds", file=log.file)
+  .LOG("Analysis finished running at ", end.time.nice, file=log.file)
+  .LOG("Runtime: ", mins, " minute(s) and ", secs, " second(s)", file=log.file)
   .LOG("     ", file=log.file, print = FALSE)
   
   flush(log.file)
   close(log.file)
   
 
-  write_tsv(res, paste0(ldsc.log, "_difference.tsv"))
+  readr::write_tsv(res, paste0(log.name, "_difference.tsv"))
   
   
   # return everything 

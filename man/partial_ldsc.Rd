@@ -2,7 +2,7 @@
 % Please edit documentation in R/ldsc_partial.R
 \name{partial_ldsc}
 \alias{partial_ldsc}
-\title{ldsc_partial - main function to estimate partial genetic correlations}
+\title{partial_ldsc - main function to estimate partial genetic correlations}
 \usage{
 partial_ldsc(
   conditions,
@@ -39,5 +39,5 @@ and tests for the difference between the two, for all pairs of conditions.
 \details{
 \code{conditions} and \code{confounder} are required arguments.
 These input files should have been pre-processed using the \code{munge()} function
-from \href{https://github.com/GenomicSEM/GenomicSEM}{\code{GenomicSEM}}
+from \href{https://github.com/GenomicSEM/GenomicSEM}{\code{GenomicSEM}}.
 }
