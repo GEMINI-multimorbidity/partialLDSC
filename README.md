@@ -86,7 +86,9 @@ own GWAS summary statistics, you will first need to properly munge then.
 -   **Example A**
 
 ``` r
-# Using GEMINI GWAS summary statistics for three conditions (osteoarthitis: OA, type 2 diabetes: T2D, benign hyperplasia of prostate: BPH) + GIANT GWAS summary statistics for the confounder (BMI) t
+# Using GEMINI GWAS summary statistics for three conditions 
+# (osteoarthitis: OA, type 2 diabetes: T2D, benign hyperplasia of prostate: BPH)
+# + GIANT GWAS summary statistics for the confounder (BMI)
 # (1,150,000 SNPs - stored in gzipped files)
 OA_file <- system.file("data/", "OA_GEMINI.sumstats.gz", package="partialLDSC")
 T2D_file <- system.file("data/", "diabetes_type_2_GEMINI.sumstats.gz", package="partialLDSC")
@@ -296,6 +298,7 @@ for the pair.
 
 ``` r
 ### structure of the results
+
 str(A)
 ```
 
@@ -337,6 +340,7 @@ str(A)
 
 ``` r
 ### matrix of unadjusted genetic correlations
+
 A$S_Stand
 ```
 
@@ -348,7 +352,11 @@ A$S_Stand
 
 ``` r
 ### pairwise results
-# in this case, we observed a significant difference between the unadjusted and the partial genetic correlation estimates only for OA and T2D. This does make sense since the genetic correlation between BMI and BPH is very low, explaining why adjusting for BMI does not affect the genetic correlation between BPH and the other conditions.
+# in this case, we observed a significant difference between the unadjusted and the partial # genetic correlation estimates only for OA and T2D. 
+# This does make sense since the genetic correlation between BMI and BPH is very low, 
+# explaining why adjusting for BMI does not affect the genetic correlation between BPH 
+# and the other conditions.
+
 A$res_diff
 ```
 
