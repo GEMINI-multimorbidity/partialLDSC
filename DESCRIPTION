@@ -2,16 +2,22 @@ Package: partialLDSC
 Title: R package to estimate partial genetic correlations
 Version: 0.0.0.9
 Author: Ninon Mounier
-# Maintainer: <>
+Maintainer: GEMINI Collaborative <abc@abc>
 Description: Adjusting genetic correlation estimates to account for the genetics of a common confounder can help better understand the role of this confounder in explaining the genetic similarity between conditions. This approach provides a way to estimate and compare unadjusted and partial genetic correlation estimates. 
 License: GPL (>= 3)
 Encoding: UTF-8
+Depends: 
+  R (>= 4.1)
 Imports: 
     magrittr,
     dplyr,
     gdata,
+    ggplot2,
+    forcats,
     lubridate,
     readr,
-    rlang
+    rlang,
+    stringr,
+    tidyr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1

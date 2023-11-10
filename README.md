@@ -23,7 +23,7 @@ Our implementation of LDSC is based on the one from
 pre-processing of the GWAS summary statistics prior to analysis should
 be done using the `munge` function they provide.
 
-There are three functions available:
+There are two main functions available:
 
 -   **`partial_ldsc()`**  
     main function to estimate unadjusted and partial genetic
@@ -32,13 +32,10 @@ There are three functions available:
     confounder’s genetic significantly affect the pairwise genetic
     correlation estimates.
 
--   **`heatmap()`**  
-    …
-
 -   **`forest_plot()`**  
-    …
+    main function to visualise the results.
 
-More details about its usage can be found in the
+More details about their usage can be found in the
 [manual](doc/partialLDSC-manual.pdf).
 
 ## Installation
@@ -109,7 +106,7 @@ A = partial_ldsc(conditions = c(OA_file, T2D_file, BPH_file),
 Show log
 </summary>
 
-    ## Multivariate ld-score regression of 4 traits (3 conditions: OA, T2D, BPH + confounder: BMI) began at: 13:37
+    ## Multivariate ld-score regression of 4 traits (3 conditions: OA, T2D, BPH + confounder: BMI) began at: 15:13
     ## Number of blocks used to perform the block jacknife used to estimate the sampling covariance matrix (V) is 200
     ## Reading in LD scores from: C:\Users\nm572\OneDrive - University of Exeter\Documents\Exeter\Projects\Data\eur_w_ld_chr
     ## Read in summary statistics [1/4] (OA) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\OA_GEMINI.sumstats.gz
@@ -230,8 +227,8 @@ Show log
     ## Partial genetic Correlation between OA and BPH: 0.1463 (0.0344)
     ## Partial genetic Correlation between T2D and BPH: 0.0581 (0.0315)
     ##      
-    ## Analysis finished running at 13:38
-    ## Runtime: 1 minute(s) and 21 second(s)
+    ## Analysis finished running at 15:14
+    ## Runtime: 0 minute(s) and 55 second(s)
     ## 
 
 </details>
@@ -304,8 +301,8 @@ str(A)
 
     ## List of 10
     ##  $ res_diff       :'data.frame': 3 obs. of  9 variables:
-    ##   ..$ x            : chr [1:3] "OA" "OA" "T2D"
-    ##   ..$ y            : chr [1:3] "T2D" "BPH" "BPH"
+    ##   ..$ condition.1  : chr [1:3] "OA" "OA" "T2D"
+    ##   ..$ condition.2  : chr [1:3] "T2D" "BPH" "BPH"
     ##   ..$ rg           : num [1:3] 0.2216 0.1295 0.0462
     ##   ..$ rg.SE        : num [1:3] 0.0208 0.0333 0.0303
     ##   ..$ partial_rg   : num [1:3] -0.0189 0.1463 0.0581
@@ -352,7 +349,8 @@ A$S_Stand
 
 ``` r
 ### pairwise results
-# in this case, we observed a significant difference between the unadjusted and the partial # genetic correlation estimates only for OA and T2D. 
+# in this case, we observed a significant difference between the unadjusted and the partial 
+# genetic correlation estimates only for OA and T2D. 
 # This does make sense since the genetic correlation between BMI and BPH is very low, 
 # explaining why adjusting for BMI does not affect the genetic correlation between BPH 
 # and the other conditions.
@@ -360,22 +358,39 @@ A$S_Stand
 A$res_diff
 ```
 
-    ##     x   y         rg      rg.SE  partial_rg partial_rg.SE       rg_cov
-    ## 1  OA T2D 0.22155702 0.02076908 -0.01886781    0.02961074 0.0004507507
-    ## 2  OA BPH 0.12949932 0.03327598  0.14634480    0.03435472 0.0010588452
-    ## 3 T2D BPH 0.04616936 0.03030614  0.05811963    0.03154903 0.0008192339
-    ##       diff.T       diff.P
-    ## 1 11.9225545 9.029680e-33
-    ## 2 -1.2925710 1.961595e-01
-    ## 3 -0.7201883 4.714090e-01
+    ##   condition.1 condition.2         rg      rg.SE  partial_rg partial_rg.SE
+    ## 1          OA         T2D 0.22155702 0.02076908 -0.01886781    0.02961074
+    ## 2          OA         BPH 0.12949932 0.03327598  0.14634480    0.03435472
+    ## 3         T2D         BPH 0.04616936 0.03030614  0.05811963    0.03154903
+    ##         rg_cov     diff.T       diff.P
+    ## 1 0.0004507507 11.9225545 9.029680e-33
+    ## 2 0.0010588452 -1.2925710 1.961595e-01
+    ## 3 0.0008192339 -0.7201883 4.714090e-01
 
 ``` r
-### ADD PLOTS
+### functions to list conditions / pairs
+
+get_conditions(A)
 ```
+
+    ## [1] "OA"  "T2D" "BPH"
+
+``` r
+get_pairs(A)
+```
+
+    ## [1] "OA-T2D"  "OA-BPH"  "T2D-BPH"
+
+``` r
+### forest plot
+forest_plot(A)
+```
+
+<img src="doc/Figures/README-resultsA-1.png" width="100%" />
 
 ## Runtime
 
-Example A \~ 1 minute(s) and 21 second(s)
+Example A \~ 0 minute(s) and 55 second(s)
 
 Runtime can be influenced by the number of traits.
 

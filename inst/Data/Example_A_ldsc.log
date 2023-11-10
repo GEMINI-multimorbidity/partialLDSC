@@ -1,4 +1,4 @@
-Multivariate ld-score regression of 4 traits (3 conditions: OA, T2D, BPH + confounder: BMI) began at: 13:37
+Multivariate ld-score regression of 4 traits (3 conditions: OA, T2D, BPH + confounder: BMI) began at: 15:13
 Number of blocks used to perform the block jacknife used to estimate the sampling covariance matrix (V) is 200
 Reading in LD scores from: C:\Users\nm572\OneDrive - University of Exeter\Documents\Exeter\Projects\Data\eur_w_ld_chr
 Read in summary statistics [1/4] (OA) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\OA_GEMINI.sumstats.gz
@@ -119,6 +119,6 @@ Partial genetic Correlation between OA and T2D: -0.0189 (0.0296)
 Partial genetic Correlation between OA and BPH: 0.1463 (0.0344)
 Partial genetic Correlation between T2D and BPH: 0.0581 (0.0315)
      
-Analysis finished running at 13:38
-Runtime: 1 minute(s) and 21 second(s)
+Analysis finished running at 15:14
+Runtime: 0 minute(s) and 55 second(s)
      

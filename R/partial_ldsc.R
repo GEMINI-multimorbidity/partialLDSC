@@ -687,8 +687,8 @@ partial_ldsc <- function(conditions, confounder,
   colnames(I) = trait.names
   
   # make a nice table with test statistic for difference & p-values
-  res = data.frame(x = NA_character_,
-                   y = NA_character_,
+  res = data.frame(condition.1 = NA_character_,
+                   condition.2 = NA_character_,
                    rg = NA_real_,
                    rg.SE = NA_real_,
                    partial_rg = NA_real_,
