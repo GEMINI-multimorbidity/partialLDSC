@@ -295,7 +295,7 @@ for the pair.
 -   **Example A**
 
 ``` r
-# structure of the results
+### structure of the results
 str(A)
 ```
 
@@ -336,7 +336,7 @@ str(A)
     ##   .. ..$ : chr [1:4] "OA" "T2D" "BPH" "BMI"
 
 ``` r
-# matrix of unadjusted genetic correlations
+### matrix of unadjusted genetic correlations
 A$S_Stand
 ```
 
@@ -347,7 +347,8 @@ A$S_Stand
     ## BMI 0.4361240 0.54076196 -0.005027793  1.000000000
 
 ``` r
-# pairwise results
+### pairwise results
+# in this case, we observed a significant difference between the unadjusted and the partial genetic correlation estimates only for OA and T2D. This does make sense since the genetic correlation between BMI and BPH is very low, explaining why adjusting for BMI does not affect the genetic correlation between BPH and the other conditions.
 A$res_diff
 ```
 
@@ -361,27 +362,25 @@ A$res_diff
     ## 3 -0.7201883 4.714090e-01
 
 ``` r
-# in this case, we observed a significant difference between the unadjusted and the partial genetic correlation estimates only for OA and T2D. This does make sense since the genetic correlation between BMI and BPH is very low, explaining why adjusting for BMI does not affect the genetic correlation between BPH and the other conditions.
-
-# plots...
+### ADD PLOTS
 ```
 
 ## Runtime
 
 Example A \~ 1 minute(s) and 21 second(s)
 
-The runtime can be influenced by the number of traits.
+Runtime can be influenced by the number of traits.
 
 <font color="grey"><small> Results from analyses performed on a Windows
 10 laptop - Processor : Intel(R) Core(TM) i5-10310U CPU @ 1.70GHz 2.21
-GHz - Memory : 16.0 GB.</font> </small>
+GHz - Memory : 16.0 GB. </font></small>
 
 <!-- ## Contributors -->
 
 ## Citation
 
-If you use the `partialLDSC` package, please cite: <TBA>
+If you use the `partialLDSC` package, please cite: …
 
 ## Contact
 
-<TBA> <!-- <mounier.ninon@gmail.com> -->
+… <!-- <mounier.ninon@gmail.com> -->
