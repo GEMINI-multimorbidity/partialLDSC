@@ -23,7 +23,16 @@ A = readRDS("inst/Data/A.RDS")
 ```
 
 # partialLDSC  
-<!--<img src="inst/Figures/logo.png" align="right" height=180/> -->
+<!--- 
+# https://github.com/GuangchuangYu/hexSticker
+library(hexSticker)
+imgurl <- "inst/Figures/logo.png"
+sticker(imgurl,  
+        package="partialLDSC", p_size=100, p_color="#FBCF8F", p_y = 1.55,
+        h_fill="white", h_color="#5270D4",
+        s_x=1, s_y=0.8, s_width=.65,
+        filename="inst/Figures/hex.png", dpi=2000) --->
+<img src="inst/Figures/hex.png" align="right" height=120/>
 
 :information\_source: `partialLDSC` is still under active development.    
 <!-- Check the [NEWS](NEWS.md) to learn more about what has been modified\! -->
