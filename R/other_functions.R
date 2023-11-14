@@ -60,14 +60,14 @@ get_pairs <- function(x,...) {
 #' @export
 
 forest_plot <- function(obj, save_file = F, file_name = NULL, file_width = NULL,
-                       conditions = NULL, pairs = NULL, order = "difference") {
+                        conditions = NULL, pairs = NULL, order = "difference") {
   
   ## check parameters
   if(length(obj) != 10) stop("only works for objects containing the output from a call to partial_ldsc()")
   
   if(!all(names(obj) == c("res_diff", "S", "V", "S_Stand", "V_Stand",      
-                        "partial.S", "partial.V", "partial.S_Stand",
-                        "partial.V_Stand", "I"))) stop("only works for objects containing the output from a call to partial_ldsc()")
+                          "partial.S", "partial.V", "partial.S_Stand",
+                          "partial.V_Stand", "I"))) stop("only works for objects containing the output from a call to partial_ldsc()")
   
   if(!is.logical(save_file)) stop("save_file : should be logical")
   # if no name, use the one from the analysis (in log file)
@@ -92,6 +92,10 @@ forest_plot <- function(obj, save_file = F, file_name = NULL, file_width = NULL,
   
   if(!order %in% c("difference", "unadjusted", "partial")) stop("order : should be either \"difference\", \"unadjusted\" or \"partial\"")
   
+  # identify confounder
+  confounder = dplyr::setdiff(colnames(obj$S), colnames(obj$partial.S))  
+  
+  
   # subset data if needed
   res_rg = obj$res_diff
   
@@ -105,7 +109,7 @@ forest_plot <- function(obj, save_file = F, file_name = NULL, file_width = NULL,
       dplyr::filter(.data$condition.1 %in% conditions, 
                     .data$condition.2 %in%  conditions) -> res_rg
   }
-    
+  
   # order
   if(order == "difference") {
     res_rg %>%
@@ -135,13 +139,13 @@ forest_plot <- function(obj, save_file = F, file_name = NULL, file_width = NULL,
     tidyr::pivot_longer(!c(.data$pair, .data$label), names_to = "adjustment", values_to = "rg") %>%
     dplyr::mutate(adjustment = dplyr::case_when(
       adjustment == "rg" ~ "unadjusted",
-      adjustment == "partial_rg" ~ "adjusted for BMI genetics")) -> plot_rg
+      adjustment == "partial_rg" ~ paste0("adjusted for ", confounder, " genetics"))) -> plot_rg
   res_plot %>%
     dplyr::transmute(.data$pair,.data$label, .data$rg.SE, .data$partial_rg.SE ) %>%
     tidyr::pivot_longer(!c(.data$pair,.data$label), names_to = "adjustment", values_to = "SE") %>%
     dplyr::mutate(adjustment = dplyr::case_when(
       adjustment == "rg.SE" ~ "unadjusted",
-      adjustment == "partial_rg.SE" ~ "adjusted for BMI genetics"))-> plot_SE
+      adjustment == "partial_rg.SE" ~ paste0("adjusted for ", confounder, " genetics")))-> plot_SE
   # they need to have the same adjustment name
   
   plot_all = dplyr::full_join(plot_rg,plot_SE, by=c("pair", "label", "adjustment"))
@@ -159,13 +163,13 @@ forest_plot <- function(obj, save_file = F, file_name = NULL, file_width = NULL,
   ggplot2::ggplot(plot_all, ggplot2::aes(x=.data$pair, y=.data$rg, ymin=.data$rg-1.96*.data$SE, ymax=.data$rg+1.96*.data$SE, color=.data$adjustment, shape=.data$adjustment, label=.data$label)) +
     ggplot2::geom_pointrange( position=ggplot2::position_dodge(width=0.2)) +
     ggplot2::geom_hline(yintercept = 0, col="black", linetype="longdash") +
-    ggplot2::ylim(min(plot_all$rg-1.96*plot_all$SE), max(plot_all$rg+1.96*plot_all$SE)+0.1)+
+    ggplot2::ylim(min(c(plot_all$rg-1.96*plot_all$SE, -0.1)), max(plot_all$rg+1.96*plot_all$SE)+0.1)+
     # q-value attenuation
     ggplot2::geom_text(vjust=-0.5, hjust=0.5, mapping = ggplot2::aes(y=(max(.data$rg+1.96*.data$SE)+0.1), 
-                                                   label=.data$label), color="black", size=2)+
+                                                                     label=.data$label), color="black", size=2)+
     ggplot2::labs(x="", 
-         y="genetic correlation (95% CI)",
-         color="", shape="") +
+                  y="genetic correlation (95% CI)",
+                  color="", shape="") +
     ggplot2::theme(legend.position = "top") +
     ggplot2::scale_color_manual(values=c("#5270D4", "#FBCF8F")) +
     ggplot2::coord_flip() -> figure
