@@ -6,9 +6,9 @@
 \usage{
 partial_ldsc(
   conditions,
-  confounder,
+  confounders,
   condition.names = NULL,
-  confounder.name = NULL,
+  confounder.names = NULL,
   ld,
   n.blocks = 200,
   log.name = NULL
@@ -18,12 +18,12 @@ partial_ldsc(
 \item{conditions}{The path to the files containing munged the GWAS summary statistics
 for the conditions (character)}
 
-\item{confounder}{The path to the file containing munged the GWAS summary statistics
-for the confounder (character)}
+\item{confounders}{The path to the files containing munged the GWAS summary statistics
+for the confounders (character)}
 
 \item{condition.names}{The names of the conditions, \code{default=NULL} (character)}
 
-\item{confounder.name}{The name of the confounder, \code{default=NULL} (character)}
+\item{confounder.names}{The names of the confounders, \code{default=NULL} (character)}
 
 \item{ld}{The path to the folder in which the LD scores used in the analysis are located.
 Expects LD scores formated as required by the original LD score regression software.  (character)}
@@ -37,7 +37,7 @@ Estimates unadjusted and partial genetic correlations (and heritabilities, on ob
 and tests for the difference between the two, for all pairs of conditions.
 }
 \details{
-\code{conditions} and \code{confounder} are required arguments.
+\code{conditions} and \code{confounders} are required arguments.
 These input files should have been pre-processed using the \code{munge()} function
 from \href{https://github.com/GenomicSEM/GenomicSEM}{\code{GenomicSEM}}.
 }

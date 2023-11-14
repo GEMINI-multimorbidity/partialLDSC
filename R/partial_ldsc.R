@@ -6,10 +6,10 @@
 #'
 #' @param conditions The path to the files containing munged the GWAS summary statistics 
 #'        for the conditions (character)
-#' @param confounder The path to the file containing munged the GWAS summary statistics 
-#'        for the confounder (character)
+#' @param confounders The path to the files containing munged the GWAS summary statistics 
+#'        for the confounders (character)
 #' @param condition.names The names of the conditions, \code{default=NULL} (character)
-#' @param confounder.name The name of the confounder, \code{default=NULL} (character)
+#' @param confounder.names The names of the confounders, \code{default=NULL} (character)
 #' @param ld The path to the folder in which the LD scores used in the analysis are located.
 #'        Expects LD scores formated as required by the original LD score regression software.  (character)
 #' @param n.blocks  The number of blocks used for block-jackknife, \code{default=200} (numeric)
@@ -17,15 +17,15 @@
 
 
 #' @details
-#' \code{conditions} and \code{confounder} are required arguments.
+#' \code{conditions} and \code{confounders} are required arguments.
 #' These input files should have been pre-processed using the \code{munge()} function
 #' from [\code{GenomicSEM}](https://github.com/GenomicSEM/GenomicSEM).
 #' @export
 
 #' @importFrom rlang .data
 
-partial_ldsc <- function(conditions, confounder, 
-                         condition.names = NULL, confounder.name = NULL,
+partial_ldsc <- function(conditions, confounders, 
+                         condition.names = NULL, confounder.names = NULL,
                          ld, n.blocks = 200, log.name = NULL){
   
   
@@ -36,7 +36,7 @@ partial_ldsc <- function(conditions, confounder,
   }
   
   begin.time <- Sys.time()
-  begin.time.nice <- paste0(lubridate::hour(begin.time), ":", lubridate::minute(begin.time))
+  begin.time.nice <- paste0(lubridate::hour(begin.time), ":", paste0(ifelse(lubridate::minute(begin.time)<10, "0", ""), lubridate::minute(begin.time)))
   #### check the parameters ####
   
   ## 1) conditions / confounder
@@ -46,29 +46,30 @@ partial_ldsc <- function(conditions, confounder,
     # get absolute path
     conditions = normalizePath(conditions)
   } else stop("conditions : wrong format, should be character", call. = FALSE)
-  if (is.character(confounder)){
-    if(!file.exists(confounder)) stop("confounder : the file does not exist", call. = FALSE)
+  if (is.character(confounders)){
+    if(any(!file.exists(confounders))) stop("confounders : some files do not exist", call. = FALSE)
     # get absolute path
-    confounder = normalizePath(confounder)
-  } else stop("confounder : wrong format, should be character", call. = FALSE)
+    confounders = normalizePath(confounders)
+  } else stop("confounders : wrong format, should be character", call. = FALSE)
   
-  if(length(confounder)>1) stop("At the moment, this function can only handle a single confounder.")
   if(length(conditions)<2) stop("At least two conditions are needed to estimate the partial correlation.")
-  
+
   n.conditions = length(conditions)
-  traits = c(conditions, confounder)
+  n.confounders = length(confounders)
+  
+  traits = c(conditions, confounders)
   
   if(! is.null(condition.names)){
     if(! is.character(condition.names)) stop("condition.names : wrong format, should be character", call. = FALSE)
   } else { # create condition.names name if NULL
     condition.names = paste0("condition", 1:n.conditions)
   }
-  if(! is.null(confounder.name)){
-    if(! is.character(confounder.name)) stop("confounder.name : wrong format, should be character", call. = FALSE)
+  if(! is.null(confounder.names)){
+    if(! is.character(confounder.names)) stop("confounder.names : wrong format, should be character", call. = FALSE)
   } else { # create condition.names name if NULL
-    confounder.name = "confounder"
+    confounder.names = paste0("confounder", 1:n.confounders)
   }
-  trait.names = c(condition.names, confounder.name)
+  trait.names = c(condition.names, confounder.names)
   
   
   ## 2) ld / wld
@@ -99,7 +100,7 @@ partial_ldsc <- function(conditions, confounder,
   
   .LOG("Multivariate ld-score regression of ", length(traits), " traits ", 
        "(",n.conditions, " conditions: ", paste(condition.names, collapse = ", "), 
-       " + confounder: ", confounder.name, ")", " began at: ", begin.time.nice, file = log.file)
+       " + ", n.confounders, " confounder(s): ", paste(confounder.names, collapse = ", "), ")", " began at: ", begin.time.nice, file = log.file)
 
   ## Dimensions
   n.traits <- length(traits)
@@ -565,7 +566,10 @@ partial_ldsc <- function(conditions, confounder,
   # get partial covariances (and partial h2) (GW)
   for(j in 1:n.conditions){
     for(k in j:n.conditions){
-      partial.cov[k, j] <- partial.cov[j, k] <- (cov[j,k] - (cov[j,n.traits]* cov[k,n.traits])/cov[n.traits,n.traits])
+      partial.cov[k, j] <- partial.cov[j, k] <- (cov[j,k] - 
+                                                   t(cov[j, (n.conditions+1):n.traits]) %*% 
+                                                   solve((cov[(n.conditions+1):n.traits, (n.conditions+1):n.traits])) %*% 
+                                                   t(t(cov[k, (n.conditions+1):n.traits])))
       
     }
   }
@@ -573,20 +577,45 @@ partial_ldsc <- function(conditions, confounder,
   # get their variances (using JK results, stored in V.hold)
   # for simplicity, use V.names, since V.hold has a different format
   ss = 1
-  vCC = which(V.names==paste(confounder.name, confounder.name, sep = "-"))
+  vCC = matrix(NA, nrow=n.confounders, ncol=n.confounders)
+  colnames(vCC) = confounder.names
+  rownames(vCC) = confounder.names
+  for(row in 1:n.confounders){
+    for(col in row:n.confounders){
+      vCC[row,col] = vCC[col, row] = which(V.names==paste(rownames(vCC)[row], colnames(vCC)[col], sep = "-"))
+    }
+  }
   
   for(j in 1:n.conditions){
     
     for(k in j:n.conditions){
       # pseudo values for partial cov
       vjk = which(V.names==paste(trait.names[j], trait.names[k], sep = "-"))
-      vjC = which(V.names==paste(trait.names[j], confounder.name, sep = "-"))
-      vkC = which(V.names==paste(trait.names[k], confounder.name, sep = "-"))
+      vjC = matrix(NA, nrow=1, ncol=n.confounders)
+      colnames(vjC) = confounder.names
+      rownames(vjC) = trait.names[j]
+      for(col in 1:n.confounders){
+        vjC[1,col] = which(V.names==paste(rownames(vjC)[1], colnames(vjC)[col], sep = "-"))
+      }
+      vkC = matrix(NA, nrow=n.confounders, ncol=1)
+      colnames(vkC) =  trait.names[k]
+      rownames(vkC) = confounder.names
+      for(row in 1:n.confounders){
+        vkC[row,1] = which(V.names==paste(colnames(vkC)[1], rownames(vkC)[row], sep = "-"))
+      }
       
-      partial.V.delete[,ss] = V.delete[,vjk]/N.vec[vjk]*m - ((V.delete[,vjC]/N.vec[vjC]*m) * (V.delete[,vkC]/N.vec[vkC]*m)) / (V.delete[,vCC]/N.vec[vCC]*m) 
-      partial.V.hold[,ss] = n.blocks*partial.cov[j,k] - ((n.blocks-1)* partial.V.delete[,ss])
-      partial.V.names[ss] = paste(trait.names[j], trait.names[k], sep = "-")
-      
+      # a bit ugly to use a loop here, but needed to implement something quickly and 
+      # didn't have time to look into more elegant options
+      for(nb in 1:n.blocks){
+        partial.V.delete[nb,ss] =  V.delete[nb,vjk]/N.vec[vjk]*m - 
+          (V.delete[nb,vjC]/N.vec[as.numeric(vjC)]*m) %*% 
+          solve(matrix((V.delete[nb,vCC]/N.vec[as.numeric(vCC)]*m), nrow = n.confounders)) %*% 
+          (V.delete[nb,vkC]/N.vec[as.numeric(vkC)]*m)
+        
+        partial.V.hold[nb,ss] = n.blocks*partial.cov[j,k] - ((n.blocks-1)* partial.V.delete[nb,ss])
+        partial.V.names[ss] = paste(trait.names[j], trait.names[k], sep = "-")
+        
+      }  
       ss = ss+1
     }
   }
@@ -727,11 +756,8 @@ partial_ldsc <- function(conditions, confounder,
            diff.P = 2*stats::pnorm(-abs(.data$diff.T))) -> res
   
   
-  #### NM modification ends ####
-  
-  
   end.time <- Sys.time()
-  end.time.nice <- paste0(lubridate::hour(end.time), ":", lubridate::minute(end.time))
+  end.time.nice <- paste0(lubridate::hour(end.time), ":", paste0(ifelse(lubridate::minute(end.time)<10, "0", ""), lubridate::minute(end.time)))
   
   total.time <- difftime(time1=end.time,time2=begin.time,units="sec")
   mins <- floor(floor(total.time)/60)

@@ -1,0 +1,80 @@
+Multivariate ld-score regression of 3 traits (2 conditions: T2D, CHD + 1 confounder(s): WHR) began at: 11:01
+Number of blocks used to perform the block jacknife used to estimate the sampling covariance matrix (V) is 200
+Reading in LD scores from: C:\Users\nm572\OneDrive - University of Exeter\Documents\Exeter\Projects\Data\eur_w_ld_chr
+Read in summary statistics [1/3] (T2D) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\diabetes_type_2_GEMINI.sumstats.gz
+Out of 1161441 SNPs, 1153850 remain after merging with LD-score files
+Removing 15 SNPs with Chi^2 > 446.142; 1153835 remain
+Read in summary statistics [2/3] (CHD) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\coronary_heart_GEMINI.sumstats.gz
+Out of 1182092 SNPs, 1165543 remain after merging with LD-score files
+Removing 10 SNPs with Chi^2 > 567.384; 1165533 remain
+Read in summary statistics [3/3] (WHR) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\whr.giant-ukbb_2018.gz.sumstats.gz
+Out of 1201338 SNPs, 1174385 remain after merging with LD-score files
+Removing 0 SNPs with Chi^2 > 697.729; 1174385 remain
+          
+Estimating heritability [1/6] for: T2D
+Heritability Results for trait: T2D
+Mean Chi^2 across remaining SNPs: 2.1342
+Lambda GC: 1.4961
+Intercept: 1.0054 (0.0259)
+Ratio: 0.0048 (0.0229)
+Total Observed Scale h2: 0.1307 (0.0055)
+h2 Z: 23.8
+     
+Calculating genetic covariance [2/6] for traits: T2D and CHD
+1153330 SNPs remain after merging T2D and CHD summary statistics
+Results for genetic covariance between: T2D and CHD
+Mean Z*Z: 0.4608
+Cross trait Intercept: 0.1141 (0.009)
+Total Observed Scale Genetic Covariance (g_cov): 0.0355 (0.0021)
+g_cov Z: 17.1
+g_cov P-value: 1.2591e-65
+     
+Calculating genetic covariance [3/6] for traits: T2D and WHR
+1145585 SNPs remain after merging T2D and WHR summary statistics
+Results for genetic covariance between: T2D and WHR
+Mean Z*Z: 0.8532
+Cross trait Intercept: 0.0893 (0.0125)
+Total Observed Scale Genetic Covariance (g_cov): 0.0755 (0.0031)
+g_cov Z: 24.3
+g_cov P-value: 8.6189e-131
+          
+Estimating heritability [4/6] for: CHD
+Heritability Results for trait: CHD
+Mean Chi^2 across remaining SNPs: 1.6958
+Lambda GC: 1.2299
+Intercept: 0.9168 (0.0196)
+Ratio: -0.1196 (0.0281)
+Total Observed Scale h2: 0.0704 (0.0035)
+h2 Z: 20.2
+     
+Calculating genetic covariance [5/6] for traits: CHD and WHR
+1156899 SNPs remain after merging CHD and WHR summary statistics
+Results for genetic covariance between: CHD and WHR
+Mean Z*Z: 0.4084
+Cross trait Intercept: 0.0338 (0.0086)
+Total Observed Scale Genetic Covariance (g_cov): 0.0329 (0.0019)
+g_cov Z: 17.5
+g_cov P-value: 1.0238e-68
+          
+Estimating heritability [6/6] for: WHR
+Heritability Results for trait: WHR
+Mean Chi^2 across remaining SNPs: 2.7353
+Lambda GC: 2.0939
+Intercept: 1.0873 (0.0261)
+Ratio: 0.0503 (0.015)
+Total Observed Scale h2: 0.1377 (0.0049)
+h2 Z: 28.1
+     
+      
+Genetic Correlation Results
+Genetic Correlation between T2D and CHD: 0.3705 (0.0173)
+Genetic Correlation between T2D and WHR: 0.5628 (0.0168)
+Genetic Correlation between CHD and WHR: 0.3342 (0.0167)
+     
+      
+Partial genetic Correlation Results
+Partial genetic Correlation between T2D and CHD: 0.2341 (0.0217)
+     
+Analysis finished running at 11:02
+Runtime: 1 minute(s) and 3 second(s)
+     

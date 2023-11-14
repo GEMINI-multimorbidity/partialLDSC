@@ -1,0 +1,122 @@
+Multivariate ld-score regression of 4 traits (2 conditions: T2D, CHD + 2 confounder(s): BMI, WHR) began at: 11:02
+Number of blocks used to perform the block jacknife used to estimate the sampling covariance matrix (V) is 200
+Reading in LD scores from: C:\Users\nm572\OneDrive - University of Exeter\Documents\Exeter\Projects\Data\eur_w_ld_chr
+Read in summary statistics [1/4] (T2D) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\diabetes_type_2_GEMINI.sumstats.gz
+Out of 1161441 SNPs, 1153850 remain after merging with LD-score files
+Removing 15 SNPs with Chi^2 > 446.142; 1153835 remain
+Read in summary statistics [2/4] (CHD) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\coronary_heart_GEMINI.sumstats.gz
+Out of 1182092 SNPs, 1165543 remain after merging with LD-score files
+Removing 10 SNPs with Chi^2 > 567.384; 1165533 remain
+Read in summary statistics [3/4] (BMI) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\BMI_Yengo_2018.txt.sumstats.gz
+Out of 1018130 SNPs, 1014995 remain after merging with LD-score files
+Removing 6 SNPs with Chi^2 > 795.64; 1014989 remain
+Read in summary statistics [4/4] (WHR) from: C:\Users\nm572\OneDrive - University of Exeter\Documents\R\win-library\4.1\partialLDSC\Data\whr.giant-ukbb_2018.gz.sumstats.gz
+Out of 1201338 SNPs, 1174385 remain after merging with LD-score files
+Removing 0 SNPs with Chi^2 > 697.729; 1174385 remain
+          
+Estimating heritability [1/10] for: T2D
+Heritability Results for trait: T2D
+Mean Chi^2 across remaining SNPs: 2.1342
+Lambda GC: 1.4961
+Intercept: 1.0054 (0.0259)
+Ratio: 0.0048 (0.0229)
+Total Observed Scale h2: 0.1307 (0.0055)
+h2 Z: 23.8
+     
+Calculating genetic covariance [2/10] for traits: T2D and CHD
+1153330 SNPs remain after merging T2D and CHD summary statistics
+Results for genetic covariance between: T2D and CHD
+Mean Z*Z: 0.4608
+Cross trait Intercept: 0.1141 (0.009)
+Total Observed Scale Genetic Covariance (g_cov): 0.0355 (0.0021)
+g_cov Z: 17.1
+g_cov P-value: 1.2591e-65
+     
+Calculating genetic covariance [3/10] for traits: T2D and BMI
+996408 SNPs remain after merging T2D and BMI summary statistics
+Results for genetic covariance between: T2D and BMI
+Mean Z*Z: 1.0387
+Cross trait Intercept: 0.0487 (0.0152)
+Total Observed Scale Genetic Covariance (g_cov): 0.0894 (0.0038)
+g_cov Z: 23.4
+g_cov P-value: 7.1286e-121
+     
+Calculating genetic covariance [4/10] for traits: T2D and WHR
+1145585 SNPs remain after merging T2D and WHR summary statistics
+Results for genetic covariance between: T2D and WHR
+Mean Z*Z: 0.8532
+Cross trait Intercept: 0.0893 (0.0125)
+Total Observed Scale Genetic Covariance (g_cov): 0.0755 (0.0031)
+g_cov Z: 24.3
+g_cov P-value: 8.6189e-131
+          
+Estimating heritability [5/10] for: CHD
+Heritability Results for trait: CHD
+Mean Chi^2 across remaining SNPs: 1.6958
+Lambda GC: 1.2299
+Intercept: 0.9168 (0.0196)
+Ratio: -0.1196 (0.0281)
+Total Observed Scale h2: 0.0704 (0.0035)
+h2 Z: 20.2
+     
+Calculating genetic covariance [6/10] for traits: CHD and BMI
+1003660 SNPs remain after merging CHD and BMI summary statistics
+Results for genetic covariance between: CHD and BMI
+Mean Z*Z: 0.4431
+Cross trait Intercept: 0.015 (0.01)
+Total Observed Scale Genetic Covariance (g_cov): 0.0347 (0.0022)
+g_cov Z: 16
+g_cov P-value: 1.115e-57
+     
+Calculating genetic covariance [7/10] for traits: CHD and WHR
+1156899 SNPs remain after merging CHD and WHR summary statistics
+Results for genetic covariance between: CHD and WHR
+Mean Z*Z: 0.4084
+Cross trait Intercept: 0.0338 (0.0086)
+Total Observed Scale Genetic Covariance (g_cov): 0.0329 (0.0019)
+g_cov Z: 17.5
+g_cov P-value: 1.0238e-68
+          
+Estimating heritability [8/10] for: BMI
+Heritability Results for trait: BMI
+Mean Chi^2 across remaining SNPs: 3.9344
+Lambda GC: 2.7869
+Intercept: 1.0199 (0.0277)
+Ratio: 0.0068 (0.0094)
+Total Observed Scale h2: 0.2091 (0.0063)
+h2 Z: 33.3
+     
+Calculating genetic covariance [9/10] for traits: BMI and WHR
+1014470 SNPs remain after merging BMI and WHR summary statistics
+Results for genetic covariance between: BMI and WHR
+Mean Z*Z: 1.7411
+Cross trait Intercept: 0.4555 (0.0185)
+Total Observed Scale Genetic Covariance (g_cov): 0.1 (0.0041)
+g_cov Z: 24.5
+g_cov P-value: 2.1764e-132
+          
+Estimating heritability [10/10] for: WHR
+Heritability Results for trait: WHR
+Mean Chi^2 across remaining SNPs: 2.7353
+Lambda GC: 2.0939
+Intercept: 1.0873 (0.0261)
+Ratio: 0.0503 (0.015)
+Total Observed Scale h2: 0.1377 (0.0049)
+h2 Z: 28.1
+     
+      
+Genetic Correlation Results
+Genetic Correlation between T2D and CHD: 0.3705 (0.0173)
+Genetic Correlation between T2D and BMI: 0.5408 (0.022)
+Genetic Correlation between T2D and WHR: 0.5628 (0.0168)
+Genetic Correlation between CHD and BMI: 0.2863 (0.018)
+Genetic Correlation between CHD and WHR: 0.3342 (0.0167)
+Genetic Correlation between BMI and WHR: 0.5896 (0.0191)
+     
+      
+Partial genetic Correlation Results
+Partial genetic Correlation between T2D and CHD: 0.2093 (0.0231)
+     
+Analysis finished running at 11:03
+Runtime: 1 minute(s) and 25 second(s)
+     
