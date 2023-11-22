@@ -1,6 +1,6 @@
 Package: partialLDSC
 Title: R package to estimate partial genetic correlations
-Version: 0.0.1.0
+Version: 0.0.1.1
 Author: Ninon Mounier
 Maintainer: GEMINI Collaborative <abc@abc>
 Description: Adjusting genetic correlation estimates to account for the genetics of a common confounder can help better understand the role of this confounder in explaining the genetic similarity between conditions. This approach provides a way to estimate and compare unadjusted and partial genetic correlation estimates. 

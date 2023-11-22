@@ -23,8 +23,15 @@ The package has recently been updated to version 0.0.1.0. Check the
 
 `partialLDSC` is an R-package to estimate partial genetic correlations
 from GWAS summary statistics, and compare them to their unadjusted
-counterparts, to quantify the contribution of a given confounder in
-explaining genetic similarity between conditions.  
+counterparts, to quantify the contribution of a set potential
+confounders in explaining genetic similarity between conditions. The
+partial genetic correlations between two conditions correspond to their
+genetic correlation, holding the genetic effects of a the potential
+confounders constant. Differences between unadjusted and partial
+estimates are not necessarily due to a causal effect of the potential
+confounders on both conditions and further (causal inference) analyses
+might be needed to better describe the relationship between the
+conditions and the potential confounders.  
 It relies on cross-trait LD-score regression (LDSC), as first described
 by [Bulik-Sullivan, B. et al. - “An atlas of genetic correlations across
 human diseases and
