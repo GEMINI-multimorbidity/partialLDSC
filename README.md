@@ -23,7 +23,14 @@ sticker(imgurl,
 `partialLDSC` is an R-package to estimate partial genetic correlations
 from GWAS summary statistics, and compare them to their unadjusted
 counterparts, to quantify the contribution of a given confounder in
-explaining genetic similarity between conditions.  
+explaining genetic similarity between conditions. The partial genetic
+correlations between two conditions correspond to theit genetic
+correlation, holding the genetic effects of a potential confounder
+constant. Differences between unadjusted and partial estimates are not
+necessarily due to a causal effect of the potential confounder on both
+conditions and further (causal inferences) analyses might be needed to
+better describe the relationship between the conditions and the
+potential confounder.  
 It relies on cross-trait LD-score regression (LDSC), as first described
 by [Bulik-Sullivan, B. et al. - “An atlas of genetic correlations across
 human diseases and
@@ -39,8 +46,8 @@ There are two main functions available:
     main function to estimate unadjusted and partial genetic
     correlations (as well as heritabilities, on the observed scale
     only), and compare them to each other to assess if adjusting for the
-    confounder’s genetic significantly affect the pairwise genetic
-    correlation estimates.
+    potential confounder’s genetic significantly affect the pairwise
+    genetic correlation estimates.
 
 -   **`forest_plot()`**  
     main function to visualise the results.
@@ -88,7 +95,7 @@ can be directly downloaded from the link they provide.
 Before running the examples, please make sure to have downloaded the
 ld-scores files. You may also need to modify the `ld` parameters to
 indicate the correct path. Note that when running the analysis with your
-own GWAS summary statistics, you will first need to properly munge then.
+own GWAS summary statistics, you will first need to properly munge them.
 
 -   **Example A**
 
