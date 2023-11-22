@@ -24,11 +24,11 @@ sticker(imgurl,
 from GWAS summary statistics, and compare them to their unadjusted
 counterparts, to quantify the contribution of a given confounder in
 explaining genetic similarity between conditions. The partial genetic
-correlations between two conditions correspond to theit genetic
+correlations between two conditions correspond to their genetic
 correlation, holding the genetic effects of a potential confounder
 constant. Differences between unadjusted and partial estimates are not
 necessarily due to a causal effect of the potential confounder on both
-conditions and further (causal inferences) analyses might be needed to
+conditions and further (causal inference) analyses might be needed to
 better describe the relationship between the conditions and the
 potential confounder.  
 It relies on cross-trait LD-score regression (LDSC), as first described
