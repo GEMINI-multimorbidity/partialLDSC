@@ -1,22 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# partialLDSC
-
-<!--- 
-# https://github.com/GuangchuangYu/hexSticker
-library(hexSticker)
-imgurl <- "inst/Figures/logo.png"
-sticker(imgurl,  
-        package="partialLDSC", p_size=100, p_color="#FBCF8F", p_y = 1.55,
-        h_fill="white", h_color="#5270D4",
-        s_x=1, s_y=0.8, s_width=.65,
-        filename="inst/Figures/hex.png", dpi=2000) --->
-
-<img src="inst/Figures/hex.png" align="right" height=120/>
+# partialLDSC <a href="https://github.com/GEMINI-multimorbidity/partialLDSC"><img src="inst/Figures/hex.png" align="right" width="150" /></a>
 
 :information\_source: `partialLDSC` is still under active development.  
 <!-- Check the [NEWS](NEWS.md) to learn more about what has been modified\! -->
+
+<!-- badges: start -->
+[![](https://img.shields.io/badge/version-0.1.0-informational.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC)
+[![](https://img.shields.io/github/last-commit/GEMINI-multimorbidity/partialLDSC.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC/commits/master)
+[![](https://img.shields.io/badge/lifecycle-experimental-orange)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
 
 ## Overview
 
@@ -31,10 +26,12 @@ necessarily due to a causal effect of the potential confounder on both
 conditions and further (causal inference) analyses might be needed to
 better describe the relationship between the conditions and the
 potential confounder.  
+
 It relies on cross-trait LD-score regression (LDSC), as first described
 by [Bulik-Sullivan, B. et al. - “An atlas of genetic correlations across
 human diseases and
 traits.”](https://pubmed.ncbi.nlm.nih.gov/26414676/).  
+
 Our implementation of LDSC is based on the one from
 [`GenomicSEM`](https://github.com/GenomicSEM/GenomicSEM/). Moreover, the
 pre-processing of the GWAS summary statistics prior to analysis should
