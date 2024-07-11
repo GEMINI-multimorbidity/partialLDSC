@@ -22,7 +22,7 @@ library(partialLDSC)
 A = readRDS("inst/Data/A.RDS")
 ```
 
-# partialLDSC <a href="https://github.com/GEMINI-multimorbidity/partialLDSC"><img src="man/figures/hex.png" align="right" width="150" /></a>
+# partialLDSC <a href="https://gemini-multimorbidity.github.io/partialLDSC/"><img src="man/figures/hex.png" align="right" width="150" /></a>
 
 :information\_source: `partialLDSC` is still under active development.  
 <!-- Check the [NEWS](NEWS.md) to learn more about what has been modified\! -->

@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# partialLDSC <a href="https://github.com/GEMINI-multimorbidity/partialLDSC"><img src="man/figures/hex.png" align="right" width="150" /></a>
+# partialLDSC <a href="https://gemini-multimorbidity.github.io/partialLDSC/"><img src="man/figures/hex.png" align="right" width="150" /></a>
 
 <!-- badges: start -->
 [![](https://img.shields.io/badge/version-0.1.1-informational.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC)
