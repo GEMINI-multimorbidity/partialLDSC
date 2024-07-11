@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# partialLDSC <a href="https://github.com/GEMINI-multimorbidity/partialLDSC"><img src="inst/Figures/hex.png" align="right" width="150" /></a>
+# partialLDSC <a href="https://github.com/GEMINI-multimorbidity/partialLDSC"><img src="man/figures/hex.png" align="right" width="150" /></a>
 
 <!-- badges: start -->
 [![](https://img.shields.io/badge/version-0.1.1-informational.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC)
@@ -403,7 +403,7 @@ get_pairs(A)
 forest_plot(A)
 ```
 
-<img src="doc/Figures/README-resultsA-1.png" width="100%" />
+<img src="man/figures/README-resultsA-1.png" width="100%" />
 
 ## Runtime
 
