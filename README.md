@@ -52,6 +52,11 @@ There are two main functions available:
 More details about their usage can be found in the
 [manual](doc/partialLDSC-manual.pdf).
 
+For further details on the method see our [preprint](https://doi.org/10.1101/2024.07.10.24309772). If you use these codes please cite:
+
+> Mounier _et al._ (2024) Genetics identifies obesity as a shared risk factor for co-occurring multiple long-term conditions. medRxiv [https://doi.org/10.1101/2024.07.10.24309772](https://doi.org/10.1101/2024.07.10.24309772)
+
+
 ## Installation
 
 You can install the current version of `partialLDSC` with:
