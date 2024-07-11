@@ -3,14 +3,15 @@
 
 # partialLDSC <a href="https://github.com/GEMINI-multimorbidity/partialLDSC"><img src="inst/Figures/hex.png" align="right" width="150" /></a>
 
-:information\_source: `partialLDSC` is still under active development.  
-<!-- Check the [NEWS](NEWS.md) to learn more about what has been modified\! -->
-
 <!-- badges: start -->
 [![](https://img.shields.io/badge/version-0.1.0-informational.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC)
 [![](https://img.shields.io/github/last-commit/GEMINI-multimorbidity/partialLDSC.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC/commits/master)
 [![](https://img.shields.io/badge/lifecycle-experimental-orange)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
+
+For details on the method see our [preprint](https://doi.org/10.1101/2024.07.10.24309772). If you use these codes please cite:
+
+> Mounier _et al._ (2024) Genetics identifies obesity as a shared risk factor for co-occurring multiple long-term conditions. medRxiv [https://doi.org/10.1101/2024.07.10.24309772](https://doi.org/10.1101/2024.07.10.24309772)
 
 
 ## Overview
@@ -51,10 +52,6 @@ There are two main functions available:
 
 More details about their usage can be found in the
 [manual](doc/partialLDSC-manual.pdf).
-
-For further details on the method see our [preprint](https://doi.org/10.1101/2024.07.10.24309772). If you use these codes please cite:
-
-> Mounier _et al._ (2024) Genetics identifies obesity as a shared risk factor for co-occurring multiple long-term conditions. medRxiv [https://doi.org/10.1101/2024.07.10.24309772](https://doi.org/10.1101/2024.07.10.24309772)
 
 
 ## Installation
@@ -421,7 +418,9 @@ GHz - Memory : 16.0 GB. </font></small>
 
 ## Citation
 
-If you use the `partialLDSC` package, please cite: …
+If you use the `partialLDSC` package, please cite: 
+
+> Mounier _et al._ (2024) Genetics identifies obesity as a shared risk factor for co-occurring multiple long-term conditions. medRxiv [https://doi.org/10.1101/2024.07.10.24309772](https://doi.org/10.1101/2024.07.10.24309772)
 
 ## Contact
 
