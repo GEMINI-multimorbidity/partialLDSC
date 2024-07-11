@@ -1,6 +1,6 @@
 Package: partialLDSC
 Title: R package to estimate partial genetic correlations
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(person("Ninon", "Mounier", 
                     email = "N.Mounier@exeter.ac.uk", 
                     role = c("aut", "cre")),

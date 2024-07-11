@@ -4,7 +4,7 @@
 # partialLDSC <a href="https://github.com/GEMINI-multimorbidity/partialLDSC"><img src="inst/Figures/hex.png" align="right" width="150" /></a>
 
 <!-- badges: start -->
-[![](https://img.shields.io/badge/version-0.1.0-informational.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC)
+[![](https://img.shields.io/badge/version-0.1.1-informational.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC)
 [![](https://img.shields.io/github/last-commit/GEMINI-multimorbidity/partialLDSC.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC/commits/master)
 [![](https://img.shields.io/badge/lifecycle-experimental-orange)](https://www.tidyverse.org/lifecycle/#experimental)
 [![DOI](https://zenodo.org/badge/716022171.svg)](https://zenodo.org/doi/10.5281/zenodo.12721532)
