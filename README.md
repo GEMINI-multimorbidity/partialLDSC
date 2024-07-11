@@ -7,9 +7,10 @@
 [![](https://img.shields.io/badge/version-0.1.0-informational.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC)
 [![](https://img.shields.io/github/last-commit/GEMINI-multimorbidity/partialLDSC.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC/commits/master)
 [![](https://img.shields.io/badge/lifecycle-experimental-orange)](https://www.tidyverse.org/lifecycle/#experimental)
+[![DOI](https://zenodo.org/badge/716022171.svg)](https://zenodo.org/doi/10.5281/zenodo.12721532)
 <!-- badges: end -->
 
-For details on the method see our [preprint](https://doi.org/10.1101/2024.07.10.24309772). If you use these codes please cite:
+For details on the method see our [preprint](https://doi.org/10.1101/2024.07.10.24309772). If you use the package `partialLDSC` please cite:
 
 > Mounier _et al._ (2024) Genetics identifies obesity as a shared risk factor for co-occurring multiple long-term conditions. medRxiv [https://doi.org/10.1101/2024.07.10.24309772](https://doi.org/10.1101/2024.07.10.24309772)
 
