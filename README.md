@@ -104,10 +104,10 @@ own GWAS summary statistics, you will first need to properly munge them.
 # (osteoarthitis: OA, type 2 diabetes: T2D, benign hyperplasia of prostate: BPH)
 # + GIANT GWAS summary statistics for the confounder (BMI)
 # (1,150,000 SNPs - stored in gzipped files)
-OA_file <- system.file("data/", "OA_GEMINI.sumstats.gz", package="partialLDSC")
-T2D_file <- system.file("data/", "diabetes_type_2_GEMINI.sumstats.gz", package="partialLDSC")
-BPH_file <- system.file("data/", "BPH_GEMINI_sumstats.gz", package="partialLDSC")
-BMI_file <- system.file("data/", "BMI_Yengo_2018.txt.sumstats.gz", package="partialLDSC")
+OA_file  <- system.file("Data/", "OA_GEMINI.sumstats.gz", package="partialLDSC")
+T2D_file <- system.file("Data/", "diabetes_type_2_GEMINI.sumstats.gz", package="partialLDSC")
+BPH_file <- system.file("Data/", "BPH_GEMINI.sumstats.gz", package="partialLDSC")
+BMI_file <- system.file("Data/", "BMI_Yengo_2018.txt.sumstats.gz", package="partialLDSC")
 
 # launch analysis (using default number of blocks)
 A = partial_ldsc(conditions = c(OA_file, T2D_file, BPH_file),
