@@ -7,13 +7,11 @@ Authors@R: c(person("Ninon", "Mounier",
               person("Luke", "Pilling", 
                     email = "L.Pilling@exeter.ac.uk", 
                     role = c("aut"),
-                    comment = c(ORCID = "0000-0002-3332-8454")), 
-              person("Bethany", "Voller", 
-                    email = "B.Voller@exeter.ac.uk", 
-                    role = c("aut")))
+                    comment = c(ORCID = "0000-0002-3332-8454")))
 Description: Adjusting genetic correlation estimates to account for the genetics of a common confounder can help better understand the role of this confounder in explaining the genetic similarity between conditions. This approach provides a way to estimate and compare unadjusted and partial genetic correlation estimates. 
 License: GPL (>= 3)
 Encoding: UTF-8
+URL: https://gemini-multimorbidity.github.io/partialLDSC, https://github.com/GEMINI-multimorbidity/partialLDSC
 Depends: 
   R (>= 4.1)
 Imports: 
@@ -29,3 +27,4 @@ Imports:
     tidyr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
+BugReports: https://github.com/GEMINI-multimorbidity/partialLDSC/issues
