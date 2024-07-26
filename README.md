@@ -117,12 +117,14 @@ CHD_file <- system.file("Data/", "coronary_heart_GEMINI.sumstats.gz", package="p
 
 BMI_file <- system.file("Data/", "BMI_Yengo_2018.txt.sumstats.gz", package="partialLDSC")
 
+LD_dir   <- file.path(system.file(package="partialLDSC"), "Data", "eur_w_ld_chr")
+
 # launch analysis (using default number of blocks)
 A = partial_ldsc(conditions = c(OA_file, T2D_file, BPH_file, CHD_file),
                  confounders = BMI_file, 
                  condition.names = c("OA", "T2D", "BPH", "CHD"), 
                  confounder.names = "BMI",
-                 ld = "~/eur_w_ld_chr",
+                 ld = LD_dir,
                  log.name = "Example_A")
 ```
 
@@ -322,14 +324,17 @@ Show log
 # (1,150,000 SNPs - stored in gzipped files)
 T2D_file <- system.file("Data/", "diabetes_type_2_GEMINI.sumstats.gz", package="partialLDSC")
 CHD_file <- system.file("Data/", "coronary_heart_GEMINI.sumstats.gz", package="partialLDSC")
+
 WHR_file <- system.file("Data/", "whr.giant-ukbb_2018.gz.sumstats.gz", package="partialLDSC")
+
+LD_dir   <- file.path(system.file(package="partialLDSC"), "Data", "eur_w_ld_chr")
 
 # launch analysis (using default number of blocks)
 B = partial_ldsc(conditions = c(T2D_file, CHD_file),
                  confounders = c(WHR_file),
                  condition.names = c("T2D", "CHD"), 
                  confounder.names = c("WHR"),
-                 ld = "~/eur_w_ld_chr",
+                 ld = LD_dir,
                  log.name = "Example_B")
 ```
 
@@ -434,13 +439,14 @@ CHD_file <- system.file("Data/", "coronary_heart_GEMINI.sumstats.gz", package="p
 BMI_file <- system.file("Data/", "BMI_Yengo_2018.txt.sumstats.gz", package="partialLDSC")
 WHR_file <- system.file("Data/", "whr.giant-ukbb_2018.gz.sumstats.gz", package="partialLDSC")
 
+LD_dir   <- file.path(system.file(package="partialLDSC"), "Data", "eur_w_ld_chr")
 
 # launch analysis (using default number of blocks)
 C = partial_ldsc(conditions = c(T2D_file, CHD_file),
                  confounders = c(BMI_file, WHR_file),
                  condition.names = c("T2D", "CHD"), 
                  confounder.names = c("BMI", "WHR"),
-                 ld = "~/eur_w_ld_chr",
+                 ld = LD_dir,
                  log.name = "Example_C")
 ```
 
