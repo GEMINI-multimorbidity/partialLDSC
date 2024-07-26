@@ -88,6 +88,8 @@ LD scores are needed, these are the same as the ones needed by the [`ldsc`](http
 
 > Expects LD scores formated as required by the original LD score regression software. Weights for the european population can be obtained by downloading the eur_w_ld_chr folder in the link below (Note that these are the same weights provided by the original developers of LDSC): https://utexas.box.com/s/vkd36n197m8klbaio3yzoxsee6sxo11v    
 
+The EUR weights are provided within the package Data directory (and are used in the examples). 
+
 
 ### Analysis
 [//]:-------------------------------
@@ -108,12 +110,14 @@ CHD_file <- system.file("Data/", "coronary_heart_GEMINI.sumstats.gz", package="p
 
 BMI_file <- system.file("Data/", "BMI_Yengo_2018.txt.sumstats.gz", package="partialLDSC")
 
+LD_dir   <- file.path(system.file(package="partialLDSC"), "Data", "eur_w_ld_chr")
+
 # launch analysis (using default number of blocks)
 A = partial_ldsc(conditions = c(OA_file, T2D_file, BPH_file, CHD_file),
                  confounders = BMI_file, 
                  condition.names = c("OA", "T2D", "BPH", "CHD"), 
                  confounder.names = "BMI",
-                 ld = "~/eur_w_ld_chr",
+                 ld = LD_dir,
                  log.name = "Example_A")
 
 ``` 
@@ -125,7 +129,7 @@ A = partial_ldsc(conditions = c(OA_file, T2D_file, BPH_file, CHD_file),
   <summary>Show log</summary>
   
   ```{r logAdisplay,echo=FALSE, eval=TRUE}
-  logA = readr::read_lines(system.file("data/", "Example_A_ldsc.log", package="partialLDSC"))
+  logA = readr::read_lines(system.file("Data/", "Example_A_ldsc.log", package="partialLDSC"))
   cat(logA, sep="\n")
   ```
   
@@ -146,12 +150,14 @@ CHD_file <- system.file("Data/", "coronary_heart_GEMINI.sumstats.gz", package="p
 
 WHR_file <- system.file("Data/", "whr.giant-ukbb_2018.gz.sumstats.gz", package="partialLDSC")
 
+LD_dir   <- file.path(system.file(package="partialLDSC"), "Data", "eur_w_ld_chr")
+
 # launch analysis (using default number of blocks)
 B = partial_ldsc(conditions = c(T2D_file, CHD_file),
                  confounders = c(WHR_file),
                  condition.names = c("T2D", "CHD"), 
                  confounder.names = c("WHR"),
-                 ld = "~/eur_w_ld_chr",
+                 ld = LD_dir,
                  log.name = "Example_B")
 
 ``` 
@@ -163,7 +169,7 @@ B = partial_ldsc(conditions = c(T2D_file, CHD_file),
   <summary>Show log</summary>
   
   ```{r logBdisplay,echo=FALSE, eval=TRUE}
-  logB = readr::read_lines(system.file("data/", "Example_B_ldsc.log", package="partialLDSC"))
+  logB = readr::read_lines(system.file("Data/", "Example_B_ldsc.log", package="partialLDSC"))
   cat(logB, sep="\n")
   ```
   
@@ -185,13 +191,14 @@ CHD_file <- system.file("Data/", "coronary_heart_GEMINI.sumstats.gz", package="p
 BMI_file <- system.file("Data/", "BMI_Yengo_2018.txt.sumstats.gz", package="partialLDSC")
 WHR_file <- system.file("Data/", "whr.giant-ukbb_2018.gz.sumstats.gz", package="partialLDSC")
 
+LD_dir   <- file.path(system.file(package="partialLDSC"), "Data", "eur_w_ld_chr")
 
 # launch analysis (using default number of blocks)
 C = partial_ldsc(conditions = c(T2D_file, CHD_file),
                  confounders = c(BMI_file, WHR_file),
                  condition.names = c("T2D", "CHD"), 
                  confounder.names = c("BMI", "WHR"),
-                 ld = "~/eur_w_ld_chr",
+                 ld = LD_dir,
                  log.name = "Example_C")
 
 ``` 
@@ -203,7 +210,7 @@ C = partial_ldsc(conditions = c(T2D_file, CHD_file),
   <summary>Show log</summary>
   
   ```{r logCdisplay,echo=FALSE, eval=TRUE}
-  logC = readr::read_lines(system.file("data/", "Example_C_ldsc.log", package="partialLDSC"))
+  logC = readr::read_lines(system.file("Data/", "Example_C_ldsc.log", package="partialLDSC"))
   cat(logC, sep="\n")
   ```
   

@@ -94,6 +94,8 @@ can be directly downloaded from the link they provide.
 > developers of LDSC):
 > <https://utexas.box.com/s/vkd36n197m8klbaio3yzoxsee6sxo11v>
 
+The EUR weights are provided within the package Data directory (and are used in the examples). 
+
 ### Analysis
 
 Before running the examples, please make sure to have downloaded the
