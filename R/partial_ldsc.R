@@ -24,10 +24,27 @@
 
 #' @importFrom rlang .data
 
-partial_ldsc <- function(conditions, confounders, 
-                         condition.names = NULL, confounder.names = NULL,
-                         ld, n.blocks = 200, log.name = NULL){
+partial_ldsc <- function(
+	conditions,
+	confounders,
+	condition.names = NULL,
+	confounder.names = NULL,
+	ld,
+	n.blocks = 200,
+	log.name = NULL,
+	confounder = lifecycle::deprecated(),
+	confounder.name = lifecycle::deprecated()
+){
   
+  # using old options?
+  if (lifecycle::is_present(confounder))  {
+    lifecycle::deprecate_warn("0.2.0", "partial_ldsc(confounder)", "partial_ldsc(confounders)")
+    confounders = confounder 
+  }
+  if (lifecycle::is_present(confounder.name))  {
+    lifecycle::deprecate_warn("0.2.0", "partial_ldsc(confounder.name)", "partial_ldsc(confounder.names)")
+    confounder.names = confounder.name 
+  }
   
   .LOG <- function(..., file, print = TRUE) {
     msg <- paste0(..., "\n")

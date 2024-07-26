@@ -2,7 +2,7 @@
 
 ## Changes
 * Multiple confounders: it is now possible to estimate partial genetic correlations using multiple potential confounders simultaneously. As a consequence, some of the arguments have been renamed (`confounders`, `confounder.names`).
-* LD weights for the EUR reference population are provided within the package (Note that these are the same weights provided by the original developers of LDSC): https://utexas.box.com/s/vkd36n197m8klbaio3yzoxsee6sxo11v)
+* LD weights for the EUR reference population are provided within the package (Note that these are the same weights provided by the original developers of LDSC. From https://utexas.box.com/s/vkd36n197m8klbaio3yzoxsee6sxo11v)
 
 
 # partialLDSC 0.1.1 (11 July 2024)
@@ -23,3 +23,5 @@
 # partialLDSC 0.0.1 (Nov 2023)
 
 * Initial GitHub release
+
+
