@@ -1,7 +1,7 @@
-# partialLDSC 0.2.0 (2023-11-14)
+# partialLDSC 0.2.0 (26 July 2024)
 
 ## Changes
-* Multiple confounders: it is now possible to estimate partial genetic correlations using multiple potential confounders simultaneously. As a consequense, some of the arguments have been renamed (`confounders`, `confounder.names`).
+* Multiple confounders: it is now possible to estimate partial genetic correlations using multiple potential confounders simultaneously. As a consequence, some of the arguments have been renamed (`confounders`, `confounder.names`).
 
 
 # partialLDSC 0.1.1 (11 July 2024)

@@ -318,9 +318,9 @@ Show log
 # (type 2 diabetes: T2D, coronary heart disease: CHD)
 # + a single confounder, GIANT GWAS summary statistics (WHR)
 # (1,150,000 SNPs - stored in gzipped files)
-T2D_file <- system.file("data/", "diabetes_type_2_GEMINI.sumstats.gz", package="partialLDSC")
-CHD_file <- system.file("data/", "coronary_heart_GEMINI.sumstats.gz", package="partialLDSC")
-WHR_file <- system.file("data/", "whr.giant-ukbb_2018.gz.sumstats.gz", package="partialLDSC")
+T2D_file <- system.file("Data/", "diabetes_type_2_GEMINI.sumstats.gz", package="partialLDSC")
+CHD_file <- system.file("Data/", "coronary_heart_GEMINI.sumstats.gz", package="partialLDSC")
+WHR_file <- system.file("Data/", "whr.giant-ukbb_2018.gz.sumstats.gz", package="partialLDSC")
 
 # launch analysis (using default number of blocks)
 B = partial_ldsc(conditions = c(T2D_file, CHD_file),
@@ -426,10 +426,11 @@ Show log
 # (type 2 diabetes: T2D, coronary heart disease: CHD)
 # + two confounders, GIANT GWAS summary statistics (BMI) / (WHR)
 # (1,150,000 SNPs - stored in gzipped files)
-T2D_file <- system.file("data/", "diabetes_type_2_GEMINI.sumstats.gz", package="partialLDSC")
-CHD_file <- system.file("data/", "coronary_heart_GEMINI.sumstats.gz", package="partialLDSC")
-BMI_file <- system.file("data/", "BMI_Yengo_2018.txt.sumstats.gz", package="partialLDSC")
-WHR_file <- system.file("data/", "whr.giant-ukbb_2018.gz.sumstats.gz", package="partialLDSC")
+T2D_file <- system.file("Data/", "diabetes_type_2_GEMINI.sumstats.gz", package="partialLDSC")
+CHD_file <- system.file("Data/", "coronary_heart_GEMINI.sumstats.gz", package="partialLDSC")
+
+BMI_file <- system.file("Data/", "BMI_Yengo_2018.txt.sumstats.gz", package="partialLDSC")
+WHR_file <- system.file("Data/", "whr.giant-ukbb_2018.gz.sumstats.gz", package="partialLDSC")
 
 
 # launch analysis (using default number of blocks)
