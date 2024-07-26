@@ -1,0 +1,9 @@
+url: https://gemini-multimorbidity.github.io/partialLDSC/
+template:
+  bootstrap: 5
+
+authors:
+  Ninon Mounier:
+    href: "https://github.com/n-mounier"
+  Luke Pilling:
+    href: "https://lcpilling.github.io"

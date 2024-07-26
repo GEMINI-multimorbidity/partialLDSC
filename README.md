@@ -1,23 +1,18 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# partialLDSC
+# partialLDSC <a href="https://gemini-multimorbidity.github.io/partialLDSC/"><img src="man/figures/hex.png" align="right" width="150" /></a>
 
-<!--- 
-# https://github.com/GuangchuangYu/hexSticker
-library(hexSticker)
-imgurl <- "inst/Figures/logo.png"
-sticker(imgurl,  
-        package="partialLDSC", p_size=100, p_color="#FBCF8F", p_y = 1.55,
-        h_fill="white", h_color="#5270D4",
-        s_x=1, s_y=0.8, s_width=.65,
-        filename="inst/Figures/hex.png", dpi=2000) --->
+<!-- badges: start -->
+[![](https://img.shields.io/badge/version-0.2.0-informational.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC)
+[![](https://img.shields.io/github/last-commit/GEMINI-multimorbidity/partialLDSC.svg)](https://github.com/GEMINI-multimorbidity/partialLDSC/commits/master)
+[![](https://img.shields.io/badge/lifecycle-experimental-orange)](https://www.tidyverse.org/lifecycle/#experimental)
+[![DOI](https://zenodo.org/badge/716022171.svg)](https://zenodo.org/doi/10.5281/zenodo.12721532)
+<!-- badges: end -->
 
-<img src="inst/Figures/hex.png" align="right" height=120/>
+For details on the method see our [preprint](https://doi.org/10.1101/2024.07.10.24309772). If you use the package `partialLDSC` please cite:
 
-:information\_source: `partialLDSC` is still under active development.  
-The package has recently been updated to version 0.0.1.0. Check the
-[NEWS](NEWS.md) to learn more about what has been modified!
+> Mounier _et al._ (2024) Genetics identifies obesity as a shared risk factor for co-occurring multiple long-term conditions. medRxiv [https://doi.org/10.1101/2024.07.10.24309772](https://doi.org/10.1101/2024.07.10.24309772)
 
 ## Overview
 
@@ -32,10 +27,12 @@ estimates are not necessarily due to a causal effect of the potential
 confounders on both conditions and further (causal inference) analyses
 might be needed to better describe the relationship between the
 conditions and the potential confounders.  
+
 It relies on cross-trait LD-score regression (LDSC), as first described
 by [Bulik-Sullivan, B. et al. - “An atlas of genetic correlations across
 human diseases and
 traits.”](https://pubmed.ncbi.nlm.nih.gov/26414676/).  
+
 Our implementation of LDSC is based on the one from
 [`GenomicSEM`](https://github.com/GenomicSEM/GenomicSEM/). Moreover, the
 pre-processing of the GWAS summary statistics prior to analysis should
@@ -47,14 +44,15 @@ There are two main functions available:
     main function to estimate unadjusted and partial genetic
     correlations (as well as heritabilities, on the observed scale
     only), and compare them to each other to assess if adjusting for the
-    confounder’s genetic significantly affect the pairwise genetic
-    correlation estimates.
+    potential confounder’s genetic significantly affect the pairwise
+    genetic correlation estimates.
 
 -   **`forest_plot()`**  
     main function to visualise the results.
 
 More details about their usage can be found in the
 [manual](doc/partialLDSC-manual.pdf).
+
 
 ## Installation
 
@@ -101,7 +99,7 @@ can be directly downloaded from the link they provide.
 Before running the examples, please make sure to have downloaded the
 ld-scores files. You may also need to modify the `ld` parameters to
 indicate the correct path. Note that when running the analysis with your
-own GWAS summary statistics, you will first need to properly munge then.
+own GWAS summary statistics, you will first need to properly munge them.
 
 -   **Example A**
 
@@ -110,12 +108,12 @@ own GWAS summary statistics, you will first need to properly munge then.
 # (osteoarthitis: OA, type 2 diabetes: T2D, benign hyperplasia of prostate: BPH, coronary heart disease: CHD)
 # + a single confounder, GIANT GWAS summary statistics (BMI)
 # (1,150,000 SNPs - stored in gzipped files)
-OA_file <- system.file("data/", "OA_GEMINI.sumstats.gz", package="partialLDSC")
-T2D_file <- system.file("data/", "diabetes_type_2_GEMINI.sumstats.gz", package="partialLDSC")
-BPH_file <- system.file("data/", "BPH_GEMINI_sumstats.gz", package="partialLDSC")
-CHD_file <- system.file("data/", "coronary_heart_GEMINI.sumstats.gz", package="partialLDSC")
+OA_file  <- system.file("Data/", "OA_GEMINI.sumstats.gz", package="partialLDSC")
+T2D_file <- system.file("Data/", "diabetes_type_2_GEMINI.sumstats.gz", package="partialLDSC")
+BPH_file <- system.file("Data/", "BPH_GEMINI.sumstats.gz", package="partialLDSC")
+CHD_file <- system.file("Data/", "coronary_heart_GEMINI.sumstats.gz", package="partialLDSC")
 
-BMI_file <- system.file("data/", "BMI_Yengo_2018.txt.sumstats.gz", package="partialLDSC")
+BMI_file <- system.file("Data/", "BMI_Yengo_2018.txt.sumstats.gz", package="partialLDSC")
 
 # launch analysis (using default number of blocks)
 A = partial_ldsc(conditions = c(OA_file, T2D_file, BPH_file, CHD_file),
@@ -729,7 +727,7 @@ get_pairs(A)
 forest_plot(A)
 ```
 
-<img src="doc/Figures/README-resultsA-1.png" width="100%" />
+<img src="man/figures/README-resultsA-1.png" width="100%" />
 
 -   **Example B**
 
@@ -827,7 +825,9 @@ GHz - Memory : 16.0 GB. </font></small>
 
 ## Citation
 
-If you use the `partialLDSC` package, please cite: …
+If you use the `partialLDSC` package, please cite: 
+
+> Mounier _et al._ (2024) Genetics identifies obesity as a shared risk factor for co-occurring multiple long-term conditions. medRxiv [https://doi.org/10.1101/2024.07.10.24309772](https://doi.org/10.1101/2024.07.10.24309772)
 
 ## Contact
 
