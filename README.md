@@ -10,9 +10,9 @@
 [![DOI](https://zenodo.org/badge/716022171.svg)](https://zenodo.org/doi/10.5281/zenodo.12721532)
 <!-- badges: end -->
 
-For details on the method see our [preprint](https://doi.org/10.1101/2024.07.10.24309772). If you use the package `partialLDSC` please cite:
+For details on the method see the published [paper](https://doi.org/10.1038/s43856-025-01347-y). If you use the package `partialLDSC` please cite:
 
-> Mounier _et al._ (2024) Genetics identifies obesity as a shared risk factor for co-occurring multiple long-term conditions. medRxiv [https://doi.org/10.1101/2024.07.10.24309772](https://doi.org/10.1101/2024.07.10.24309772)
+> Mounier _et al._ Genetics identifies obesity as a shared risk factor for co-occurring multiple long-term conditions. _Commun Med_ **6**, 67 (2026). doi:[10.1038/s43856-025-01347-y](https://doi.org/10.1038/s43856-025-01347-y)
 
 
 ## Overview
